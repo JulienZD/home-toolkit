@@ -1,8 +1,19 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { User, UserCreateInput } from '../orm/repositories/users.repository';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
+import { UserCreateInput } from '../orm/repositories/users.repository';
+import { User } from './dto/user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
