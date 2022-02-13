@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from '../../prisma.service';
+import { Repository } from '../../shared/providers/repository';
 import { User } from '../../users/dto/user.dto';
 
 export type UserCreateInput = SafeRecordModification<Prisma.UserCreateInput>;
 
 @Injectable()
-export class UsersRepository {
-  constructor(private prisma: PrismaService) {}
-
+export class UsersRepository extends Repository<User> {
   public async create(data: UserCreateInput) {
     const user = await this.prisma.user.create({
       data,
@@ -42,11 +40,20 @@ export class UsersRepository {
     return new User(user);
   }
 
-  get delete() {
-    return this.prisma.user.delete;
+  public patch(id: number, data: Partial<SafeRecordModification<User>>): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 
-  get deleteMany() {
-    return this.prisma.user.deleteMany;
+  public async delete(id: number) {
+    return this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
