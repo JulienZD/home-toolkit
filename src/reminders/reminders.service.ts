@@ -6,6 +6,6 @@ import { Reminder } from './dto/reminder.dto';
 @Injectable()
 export class RemindersService extends Service<Reminder> {
   constructor(remindersRepository: RemindersRepository) {
-    super(remindersRepository);
+    super(remindersRepository, 'reminders');
   }
 }

@@ -6,6 +6,6 @@ import { User } from './dto/user.dto';
 @Injectable()
 export class UsersService extends Service<User> {
   constructor(readonly userRepository: UsersRepository) {
-    super(userRepository);
+    super(userRepository, 'users');
   }
 }

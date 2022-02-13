@@ -1,9 +1,15 @@
-import { NotFoundException } from '@nestjs/common';
+import { Logger, NotFoundException } from '@nestjs/common';
+import { capitalizeFirstLetter } from '../../util/string.helper';
 import { BaseEntity } from '../dto/base.entity';
 import { Repository } from './repository';
 
 export abstract class Service<T extends BaseEntity<T>> {
-  constructor(private repository: Repository<T>) {}
+  protected logger: Logger;
+  constructor(private readonly repository: Repository<T>, serviceName: string) {
+    const identifier = `${capitalizeFirstLetter(serviceName)}Service`;
+    this.logger = new Logger(identifier);
+    this.logger.debug(`Initialized`);
+  }
 
   async create(data: SafeRecordModification<T>): Promise<T> {
     return this.repository.create(data);
