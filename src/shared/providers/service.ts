@@ -12,14 +12,17 @@ export abstract class Service<T extends BaseEntity<T>> {
   }
 
   async create(data: SafeRecordModification<T>): Promise<T> {
+    this.logger.log('Create');
     return this.repository.create(data);
   }
 
   async getAll(): Promise<T[]> {
+    this.logger.log('Get all');
     return this.repository.find();
   }
 
   async get(id: number): Promise<T> {
+    this.logger.log('Get');
     const result = await this.repository.get(id);
     if (!result) {
       throw new NotFoundException();
@@ -29,10 +32,12 @@ export abstract class Service<T extends BaseEntity<T>> {
   }
 
   async find(where?: KeyIn<T>): Promise<T[]> {
+    this.logger.log('Find');
     return this.repository.find(where);
   }
 
   async findOne(where: KeyIn<T>): Promise<T> {
+    this.logger.log('Find one');
     const result = await this.repository.findOne(where);
     if (!result) {
       throw new NotFoundException();
@@ -42,6 +47,7 @@ export abstract class Service<T extends BaseEntity<T>> {
   }
 
   async patch(id: number, data: ModifyData<T>): Promise<T> {
+    this.logger.log('Patch');
     const exists = await this.get(id);
     if (!exists) {
       throw new NotFoundException();
@@ -50,6 +56,7 @@ export abstract class Service<T extends BaseEntity<T>> {
   }
 
   async delete(id: number): Promise<T> {
+    this.logger.log('Delete');
     try {
       return await this.repository.delete(id);
     } catch (e) {
