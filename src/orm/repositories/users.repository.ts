@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 import { User } from '../../users/dto/user.dto';
 
-export type UserCreateInput = Prisma.UserCreateInput;
+export type UserCreateInput = SafeRecordModification<Prisma.UserCreateInput>;
 
 @Injectable()
 export class UsersRepository {
