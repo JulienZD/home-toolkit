@@ -2,20 +2,20 @@ import { BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersRepository } from '../orm/repositories/users.repository';
 import { AuthenticationService } from './authentication.service';
-import * as bcrypt from 'bcrypt';
+import { hash } from 'bcrypt';
+import { UsersService } from '~/users/users.service';
 
 describe('AuthenticationService', () => {
   let service: AuthenticationService;
-  let usersRepository: UsersRepository;
+  let usersService: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthenticationService,
         {
-          provide: UsersRepository,
+          provide: UsersService,
           useValue: {
             create: jest.fn(),
             findOne: jest.fn(),
@@ -37,7 +37,7 @@ describe('AuthenticationService', () => {
     }).compile();
 
     service = module.get<AuthenticationService>(AuthenticationService);
-    usersRepository = module.get<UsersRepository>(UsersRepository);
+    usersService = module.get<UsersService>(UsersService);
 
     jest.clearAllMocks();
   });
@@ -61,8 +61,8 @@ describe('AuthenticationService', () => {
         updatedAt: new Date(),
       };
 
-      const findOneSpy = jest.spyOn(usersRepository, 'findOne').mockResolvedValue(null);
-      const createSpy = jest.spyOn(usersRepository, 'create').mockResolvedValue(createdUser);
+      const findOneSpy = jest.spyOn(usersService, 'findOne').mockResolvedValue(null);
+      const createSpy = jest.spyOn(usersService, 'create').mockResolvedValue(createdUser);
 
       const result = await service.register(userToCreate);
 
@@ -80,9 +80,11 @@ describe('AuthenticationService', () => {
         updatedAt: new Date(),
       };
 
+      const bcrypt = { hash };
+
       const hashSpy = jest.spyOn(bcrypt, 'hash');
-      jest.spyOn(usersRepository, 'findOne').mockResolvedValue(null);
-      const createSpy = jest.spyOn(usersRepository, 'create').mockResolvedValue(createdUser);
+      jest.spyOn(usersService, 'findOne').mockResolvedValue(null);
+      const createSpy = jest.spyOn(usersService, 'create').mockResolvedValue(createdUser);
 
       const result = await service.register(userToCreate);
 
@@ -101,8 +103,8 @@ describe('AuthenticationService', () => {
         updatedAt: new Date(),
       };
 
-      const findOneSpy = jest.spyOn(usersRepository, 'findOne').mockResolvedValue(createdUser);
-      const createSpy = jest.spyOn(usersRepository, 'create');
+      const findOneSpy = jest.spyOn(usersService, 'findOne').mockResolvedValue(createdUser);
+      const createSpy = jest.spyOn(usersService, 'create');
 
       expect(() => service.register(userToCreate)).rejects.toThrow(BadRequestException);
       expect(findOneSpy).toHaveBeenCalled();

@@ -1,28 +1,17 @@
-import {
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  Post,
-  Request,
-  UseGuards,
-  UseInterceptors,
-  ValidationPipe,
-  VERSION_NEUTRAL,
-} from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards, VERSION_NEUTRAL } from '@nestjs/common';
 import { AuthenticationResult, AuthenticationService } from './authentication.service';
-import { RegistrationDto } from './dto/registration.dto';
+import { RegistrationDto } from './dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller({
   path: 'authentication',
   version: VERSION_NEUTRAL,
 })
-@UseInterceptors(ClassSerializerInterceptor)
 export class AuthenticationController {
   constructor(private authenticationService: AuthenticationService) {}
 
   @Post('register')
-  async register(@Body(ValidationPipe) data: RegistrationDto): Promise<AuthenticationResult> {
+  async register(@Body() data: RegistrationDto): Promise<AuthenticationResult> {
     return this.authenticationService.register(data);
   }
 

@@ -1,8 +1,11 @@
+import { ArgumentMetadata } from '@nestjs/common';
 import { ProtectFieldsPipe } from './protect-fields.pipe';
+
+class Dto {}
 
 describe('ProtectFieldsPipe', () => {
   it('should be defined', () => {
-    expect(new ProtectFieldsPipe()).toBeDefined();
+    expect(new ProtectFieldsPipe({ method: 'POST' } as any)).toBeDefined();
   });
 
   it('removes `id, `createdAt`, `updatedAt` and `deletedAt` by default', () => {
@@ -17,7 +20,13 @@ describe('ProtectFieldsPipe', () => {
       deletedAt: new Date(),
     };
 
-    const result = new ProtectFieldsPipe().transform(input);
+    const metadata: ArgumentMetadata = {
+      type: 'body',
+      metatype: Dto,
+      data: '',
+    };
+
+    const result = new ProtectFieldsPipe({ method: 'POST' } as any).transform(input, metadata);
 
     protectedFields.forEach((field) => expect(result).not.toHaveProperty(field));
 
@@ -38,7 +47,12 @@ describe('ProtectFieldsPipe', () => {
       deletedAt: new Date(),
     };
 
-    const result = new ProtectFieldsPipe(...extraFields).transform(input);
+    const metadata: ArgumentMetadata = {
+      type: 'body',
+      metatype: Dto,
+    };
+
+    const result = new ProtectFieldsPipe({ method: 'POST' } as any, ...extraFields).transform(input, metadata);
 
     extraFields.forEach((field) => expect(result).not.toHaveProperty(field));
 

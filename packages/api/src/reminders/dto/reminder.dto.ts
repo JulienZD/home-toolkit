@@ -1,15 +1,15 @@
-import { Reminder as PrismaReminder } from '@prisma/client';
-import { Type } from 'class-transformer';
-import { IsDate, MinLength } from 'class-validator';
-import { BaseEntity } from '../../shared/dto/base.entity';
+import { createZodDto } from '@anatine/zod-nestjs';
+import { z } from 'zod';
+import { zDateSchema } from '~/util/zod.helper';
 
-export class Reminder extends BaseEntity<Reminder> implements PrismaReminder {
-  @MinLength(3)
-  title!: string;
-  description!: string | null;
+export const ReminderModel = z.object({
+  title: z.string().min(3).max(120),
+  description: z.string().nullish(),
+  remindAt: zDateSchema,
 
-  @Type(() => Date)
-  @IsDate()
-  remindAt!: Date;
-  userId!: number;
-}
+  userId: z.number(),
+});
+
+export class ReminderDto extends createZodDto(ReminderModel) {}
+
+export class UpdateReminderDto extends createZodDto(ReminderModel.omit({ userId: true })) {}

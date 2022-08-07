@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersRepository } from '../orm/repositories/users.repository';
+import { PrismaService } from '~/providers/prisma/prisma.service';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
@@ -10,11 +10,13 @@ describe('UsersService', () => {
       providers: [
         UsersService,
         {
-          provide: UsersRepository,
+          provide: PrismaService,
           useValue: {
-            find: jest.fn(),
-            findOne: jest.fn(),
-            create: jest.fn(),
+            user: {
+              find: jest.fn(),
+              findOne: jest.fn(),
+              create: jest.fn(),
+            },
           },
         },
       ],

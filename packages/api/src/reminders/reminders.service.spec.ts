@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RemindersRepository } from '../orm/repositories/reminders.repository';
+import { PrismaService } from '~/providers/prisma/prisma.service';
 import { RemindersService } from './reminders.service';
 
 describe('RemindersService', () => {
@@ -10,13 +10,15 @@ describe('RemindersService', () => {
       providers: [
         RemindersService,
         {
-          provide: RemindersRepository,
+          provide: PrismaService,
           useValue: {
-            create: jest.fn(),
-            patch: jest.fn(),
-            delete: jest.fn(),
-            getAll: jest.fn(),
-            get: jest.fn(),
+            reminder: {
+              create: jest.fn(),
+              patch: jest.fn(),
+              delete: jest.fn(),
+              getAll: jest.fn(),
+              get: jest.fn(),
+            },
           },
         },
       ],
