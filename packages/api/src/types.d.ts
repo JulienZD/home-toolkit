@@ -3,5 +3,5 @@ type SafeRecordModification<T> = Omit<T, 'id' | 'createdAt' | 'updatedAt' | 'del
 type ModifyData<T> = Partial<SafeRecordModification<T>>;
 
 type KeyIn<T> = {
-  [K in T]: keyof T;
+  [K in keyof T]: T[K];
 };

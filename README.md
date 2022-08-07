@@ -1,22 +1,22 @@
-# Toolkit Backend
+# Home Toolkit
 
-## Installation
+This is a monorepo for a toolkit to run in your home.
 
+## Requirements
+* [Yarn](https://yarnpkg.com/) v3+
+* [Docker](https://docker.com)
+  
+## Installation 
+Clone the repository and run the following command:
 ```bash
 $ yarn install
 ```
 
-## Running the app
+## Running the apps
 
 ```bash
 # development
-$ yarn start
-
-# watch mode
-$ yarn start:dev
-
-# production mode
-$ yarn start:prod
+$ yarn dev
 ```
 
 ## Test
