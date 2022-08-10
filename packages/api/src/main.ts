@@ -2,7 +2,7 @@ import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SensitiveDataFilterInterceptor } from './shared/interceptors/sensitive-data-filter.interceptor';
+import { SensitiveDataFilterInterceptor } from '~/modules/shared/interceptors/sensitive-data-filter.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

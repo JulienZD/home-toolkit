@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AuthenticationModule } from '../../src/authentication/authentication.module';
 import { UsersRepository } from '../../src/providers/prisma/repositories/users.repository';
-import { User } from '../../src/users/dto/user.dto';
+import { User } from '../../src/modules/users/dto/user.dto';
 
 describe('AuthenticationController (e2e)', () => {
   let app: INestApplication;

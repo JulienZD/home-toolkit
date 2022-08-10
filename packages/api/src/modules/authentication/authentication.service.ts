@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import type { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { UsersService } from '~/users/users.service';
+import { UsersService } from '~/modules/users/users.service';
 import type { LoginDto, RegistrationDto } from './dto';
 
 export interface AuthenticationResult {

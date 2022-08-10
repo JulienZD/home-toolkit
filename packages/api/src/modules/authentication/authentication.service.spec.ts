@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthenticationService } from './authentication.service';
 import { hash } from 'bcrypt';
-import { UsersService } from '~/users/users.service';
+import { UsersService } from '~/modules/users/users.service';
 
 describe('AuthenticationService', () => {
   let service: AuthenticationService;

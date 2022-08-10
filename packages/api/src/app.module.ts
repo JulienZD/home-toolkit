@@ -2,12 +2,12 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { LoggerMiddleware } from './logger.middleware';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { RemindersModule } from './modules/reminders/reminders.module';
+import { UsersModule } from './modules/users/users.module';
 import { PrismaModule } from './providers/prisma/prisma.module';
-import { RemindersModule } from './reminders/reminders.module';
-import { SharedModule } from './shared/shared.module';
-import { UsersModule } from './users/users.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @Module({
   imports: [ConfigModule.forRoot(), UsersModule, PrismaModule, SharedModule, AuthenticationModule, RemindersModule],

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { JwtAuthGuard } from '~/authentication/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '~/modules/authentication/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 
 @Controller('users')

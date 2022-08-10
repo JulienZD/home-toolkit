@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Reminder } from '@prisma/client';
-import { JwtAuthGuard } from '../authentication/guards/jwt-auth.guard';
-import { AuthUser } from '../shared/decorators/auth-user.decorator';
-import { ConnectUser } from '../shared/decorators/connect-user.decorator';
+import { JwtAuthGuard } from '~/modules/authentication/guards/jwt-auth.guard';
+import { AuthUser } from '~/modules/shared/decorators/auth-user.decorator';
+import { ConnectUser } from '~/modules/shared/decorators/connect-user.decorator';
 import { ReminderDto, UpdateReminderDto } from './dto/reminder.dto';
 import { RemindersService } from './reminders.service';
 
