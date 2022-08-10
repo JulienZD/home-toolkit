@@ -1,5 +1,6 @@
 import { Controller, Get, ImATeapotException, Version, VERSION_NEUTRAL } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Public } from './modules/authentication/decorators/public.decorator';
 
 @Controller()
 export class AppController {
@@ -10,6 +11,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Public()
   @Version(['1', VERSION_NEUTRAL])
   @Get('teapot')
   getTeapot(): ImATeapotException {

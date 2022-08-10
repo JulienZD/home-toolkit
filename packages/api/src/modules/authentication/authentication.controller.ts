@@ -1,5 +1,6 @@
 import { Body, Controller, Post, Request, UseGuards, VERSION_NEUTRAL } from '@nestjs/common';
 import { AuthenticationResult, AuthenticationService } from './authentication.service';
+import { Public } from './decorators/public.decorator';
 import { RegistrationDto } from './dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
@@ -7,6 +8,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
   path: 'authentication',
   version: VERSION_NEUTRAL,
 })
+@Public()
 export class AuthenticationController {
   constructor(private authenticationService: AuthenticationService) {}
 

@@ -1,24 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { Reminder } from '@prisma/client';
-import { JwtAuthGuard } from '~/modules/authentication/guards/jwt-auth.guard';
 import { AuthUser } from '~/modules/shared/decorators/auth-user.decorator';
 import { ConnectUser } from '~/modules/shared/decorators/connect-user.decorator';
 import { ReminderDto, UpdateReminderDto } from './dto/reminder.dto';
 import { RemindersService } from './reminders.service';
 
 @Controller('reminders')
-@UseGuards(JwtAuthGuard)
 export class RemindersController {
   constructor(private remindersService: RemindersService) {}
 
