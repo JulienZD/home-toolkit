@@ -17,11 +17,11 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^16.0.0",
-    "commitlint": "^16.1.0",
-    "git-cz": "^4.8.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^12.3.3"
+    "@commitlint/config-conventional": "^17.0.3",
+    "commitlint": "^17.0.3",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
   },
   "config": {
     "commitizen": {
