@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthenticationService } from './authentication.service';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 import { UsersService } from '~/modules/users/users.service';
 
 describe('AuthenticationService', () => {
