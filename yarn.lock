@@ -8461,6 +8461,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svelte-notifications@npm:^0.9.96":
+  version: 0.9.96
+  resolution: "svelte-notifications@npm:0.9.96"
+  checksum: c44397546d43130a3083203efac7f3ee29cda9b4934b7aa6ab38ef40a002f945b54d9cb52ed803769f2df4c8369f553311a42394188904551744b5e6685f9418
+  languageName: node
+  linkType: hard
+
 "svelte-preprocess@npm:^4.0.0, svelte-preprocess@npm:^4.10.6":
   version: 4.10.7
   resolution: "svelte-preprocess@npm:4.10.7"
@@ -9162,6 +9169,7 @@ __metadata:
     prettier-plugin-svelte: ^2.7.0
     svelte: ^3.44.0
     svelte-check: ^2.7.1
+    svelte-notifications: ^0.9.96
     svelte-preprocess: ^4.10.6
     tslib: ^2.3.1
     typescript: ^4.7.4
