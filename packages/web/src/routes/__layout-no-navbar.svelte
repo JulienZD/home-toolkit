@@ -2,6 +2,6 @@
   import BaseLayout from '$lib/components/layout/BaseLayout.svelte';
 </script>
 
-<BaseLayout>
+<BaseLayout noNavbar>
   <slot />
 </BaseLayout>
