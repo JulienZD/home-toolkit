@@ -1,14 +1,8 @@
 <script lang="ts">
-  import NavbarContent from '$lib/components/layout/NavbarContent.svelte';
+  import { AppShell, Header, Navbar, ShellSection, SvelteUIProvider, fns } from '@svelteuidev/core';
+
   import HeaderContent from '$lib/components/layout/HeaderContent.svelte';
-
-
-  import {
-  AppShell,fns,Header,
-  SvelteUIProvider,
-  Navbar,
-  ShellSection,
-  } from '@svelteuidev/core';
+  import NavbarContent from '$lib/components/layout/NavbarContent.svelte';
 
   let isDark = false;
   let isNavbarOpened = false;
@@ -22,7 +16,10 @@
     navbarOffsetBreakpoint="sm"
     asideOffsetBreakpoint="sm"
     override={{
-      main: { bc: isDark ? fns.themeColor('dark', 8) : fns.themeColor('gray', 0) },
+      main: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        bc: isDark ? fns.themeColor('dark', 8) : fns.themeColor('gray', 0),
+      },
     }}
   >
     <Navbar
