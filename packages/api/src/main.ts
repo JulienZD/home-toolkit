@@ -14,6 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ZodValidationPipe());
 
   app.useGlobalInterceptors(new SensitiveDataFilterInterceptor(['password']));
+
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

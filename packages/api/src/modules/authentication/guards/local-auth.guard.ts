@@ -11,9 +11,8 @@ export class LocalAuthGuard extends AuthGuard('local') {
     // does not provide a ZodGuard
     const parseResult = LoginDto.zodSchema.safeParse(data);
 
-    // if-block taken from @anatine/zod-nestjs/src/lib/zod-validation-pipe.ts
     if (!parseResult.success) {
-      const message = parseResult.error.errors.map((error) => `${error.path.join('.')}: ${error.message}`);
+      const message = parseResult.error.flatten();
 
       throw new BadRequestException(message);
     }
