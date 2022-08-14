@@ -6,7 +6,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller({
   path: 'authentication',
-  version: VERSION_NEUTRAL,
+  version: ['1', VERSION_NEUTRAL],
 })
 @Public()
 export class AuthenticationController {
