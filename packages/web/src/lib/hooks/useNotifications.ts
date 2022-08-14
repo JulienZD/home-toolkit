@@ -40,8 +40,9 @@ export const useNotifications = () => {
 
     notifications.addNotification({
       text,
+      title: options.title,
       type: 'success',
-      removeAfter: 3000,
+      removeAfter: 5000,
       position: 'bottom-right',
       ...otherOptions,
     });
