@@ -1,6 +1,5 @@
 import { derived, writable } from 'svelte/store';
 import axios from 'axios';
-import { isAxiosApiError } from '$lib/util/type-guards/api/isAxiosApiError';
 import { isObject } from '$lib/util/type-guards/isObject';
 import jwtDecode from 'jwt-decode';
 
@@ -26,17 +25,13 @@ const createAuth = () => {
     subscribe,
     logout: () => setAuthToken(null),
     login: async (email: string, password: string) => {
-      const { data } = await axios
-        .post<{ accessToken: string; user: Record<string, string> }>(`${baseUrl}/authentication/login`, {
+      const { data } = await axios.post<{ accessToken: string; user: Record<string, string> }>(
+        `${baseUrl}/authentication/login`,
+        {
           email,
           password,
-        })
-        .catch((err) => {
-          if (isAxiosApiError(err)) {
-            throw err.response.data;
-          }
-          throw err;
-        });
+        }
+      );
 
       const { accessToken } = data;
 
