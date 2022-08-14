@@ -10,9 +10,18 @@ import { RemindersModule } from './modules/reminders/reminders.module';
 import { UsersModule } from './modules/users/users.module';
 import { PrismaModule } from './providers/prisma/prisma.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { SmartHomeModule } from './modules/smart-home/smart-home.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, PrismaModule, SharedModule, AuthenticationModule, RemindersModule],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    PrismaModule,
+    SharedModule,
+    AuthenticationModule,
+    RemindersModule,
+    SmartHomeModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
