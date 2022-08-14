@@ -1,24 +1,23 @@
 import { derived, writable } from 'svelte/store';
 import axios from 'axios';
-import { isObject } from '$lib/util/type-guards/isObject';
 import jwtDecode from 'jwt-decode';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = import.meta.env.VITE_API_URL;
 
-const getFromStorage = (key: string) => {
+const getFromLocalStorage = (key: string) => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem(key);
   }
 };
 
-const setStorage = (key: string, value: string) => {
+const persistToLocalStorage = (key: string, value: string) => {
   if (typeof window !== 'undefined') {
     return localStorage.setItem(key, value);
   }
 };
 
 const createAuth = () => {
-  const existingToken = getFromStorage('accessToken');
+  const existingToken = getFromLocalStorage('accessToken');
   const { subscribe, set: setAuthToken } = writable<string | null>(existingToken);
 
   return {
@@ -36,8 +35,6 @@ const createAuth = () => {
       const { accessToken } = data;
 
       setAuthToken(accessToken);
-      setStorage('accessToken', accessToken);
-      return true;
     },
   };
 };
@@ -45,11 +42,18 @@ const createAuth = () => {
 export const auth = createAuth();
 
 export const user = derived(auth, ($authToken) => {
-  if (!$authToken) return null;
-
-  const decoded = jwtDecode($authToken);
-  if (isObject(decoded)) {
-    return decoded as { username: string };
+  if (!$authToken) {
+    persistToLocalStorage('accessToken', '');
+    return null;
   }
-  return null;
+
+  try {
+    const data = jwtDecode($authToken);
+
+    // We know it's a valid token at this point
+    persistToLocalStorage('accessToken', $authToken);
+    return data as { username: string };
+  } catch {
+    return null;
+  }
 });
