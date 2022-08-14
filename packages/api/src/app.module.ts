@@ -14,7 +14,9 @@ import { SmartHomeModule } from './modules/smart-home/smart-home.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      cache: true,
+    }),
     UsersModule,
     PrismaModule,
     SharedModule,
