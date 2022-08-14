@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 export interface ISmartLight {
   id: string;
@@ -19,6 +19,14 @@ export interface ISmartLightOperationResult extends Required<ISmartLightOperatio
  */
 @Injectable()
 export abstract class ISmartLightsService {
+  protected logger: Logger;
+
+  constructor(serviceName: string) {
+    this.logger = new Logger(serviceName);
+    this.establishConnection();
+  }
+
   public abstract updateLight(lightId: string, operation: ISmartLightOperation): Promise<ISmartLightOperationResult>;
   public abstract getLights(): Promise<ISmartLight[]>;
+  protected abstract establishConnection(): Promise<void>;
 }
