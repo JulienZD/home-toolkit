@@ -1,24 +1,12 @@
 import { QueryClient, type QueryFunctionContext } from '@sveltestack/svelte-query';
+import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import { auth } from '$lib/stores/auth';
 import axios from 'axios'; // Can't use named import for { Axios } here or Vite will complain :shrug:
 
-const baseUrl = import.meta.env.VITE_API_URL;
-
 let authToken: string | undefined;
 
-interface AuthLoginResponse {
-  user: {
-    email: string;
-  };
-  accessToken: string;
-}
-
-interface QueryMap {
-  foo: AuthLoginResponse;
-}
-
 const axiosClient = new axios.Axios({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: PUBLIC_BASE_API_URL,
   headers: {
     Authorization: authToken ? `Bearer ${authToken}` : '',
     'Content-Type': 'application/json',
@@ -29,7 +17,7 @@ const defaultQueryFn = async <T>({ queryKey }: QueryFunctionContext) => {
   const [key] = queryKey as string[];
   const path = key.startsWith('/') ? key : `/${key}`;
 
-  const { data } = await axiosClient.get<T>(`${baseUrl}${path}`);
+  const { data } = await axiosClient.get<T>(path);
   return data;
 };
 

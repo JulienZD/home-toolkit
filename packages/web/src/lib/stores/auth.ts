@@ -1,8 +1,9 @@
 import { derived, writable } from 'svelte/store';
+import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const baseUrl = import.meta.env.VITE_API_URL;
+const baseUrl = PUBLIC_BASE_API_URL;
 
 const getFromLocalStorage = (key: string) => {
   if (typeof window !== 'undefined') {
