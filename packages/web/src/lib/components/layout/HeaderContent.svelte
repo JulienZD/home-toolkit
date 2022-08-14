@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Burger, Group, Switch } from '@svelteuidev/core';
+  import { Burger, Group, Text } from '@svelteuidev/core';
+  import AppLink from '../ui/AppLink.svelte';
   import AuthButtons from './auth/AuthButtons.svelte';
+  import { PUBLIC_APP_NAME } from '$env/static/public';
+  import ThemeSwitcher from '../ui/ThemeSwitcher.svelte';
   import { createEventDispatcher } from 'svelte';
-  import { isDark } from '$lib/stores/theme';
-  import { user } from '$lib/stores/auth';
 
   export let isNavbarOpened: boolean;
   export let noNavbar: boolean;
@@ -12,11 +13,8 @@
 </script>
 
 <Group
-  position={noNavbar ? 'right' : 'apart'}
+  position="apart"
   override={{
-    '@sm': {
-      justifyContent: 'flex-end !important',
-    },
     alignItems: 'center',
   }}
 >
@@ -31,9 +29,11 @@
       on:click!stopPropagation={() => dispatch('toggleNavbar')}
     />
   {/if}
-  <Switch bind:checked={$isDark} label="Switch Theme" />
-  {#if $user}
-    <span>Hello {$user.username}</span>
-  {/if}
-  <AuthButtons />
+  <AppLink href="/">
+    <Text size="xl" variant="gradient" gradient={{ from: 'yellow', to: 'red', deg: 140 }}>{PUBLIC_APP_NAME}</Text>
+  </AppLink>
+  <Group>
+    <ThemeSwitcher />
+    <AuthButtons />
+  </Group>
 </Group>
