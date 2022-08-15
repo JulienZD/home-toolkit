@@ -16,6 +16,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new SensitiveDataFilterInterceptor(['password']));
 
   app.enableCors();
+
+  app.enableShutdownHooks();
+
   await app.listen(3000);
 }
 bootstrap();
