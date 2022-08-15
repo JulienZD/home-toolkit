@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, OnApplicationShutdown } from '@nestjs/common';
 import { AccessoryTypes, discoverGateway, TradfriClient, type Accessory, type Group } from 'node-tradfri-client';
 
 import {
@@ -15,7 +15,7 @@ interface ITradfriOptions {
   psk?: string;
 }
 
-export class TradfriService extends ISmartLightsService {
+export class TradfriService extends ISmartLightsService implements OnApplicationShutdown {
   private tradfriClient!: TradfriClient;
   // @ts-expect-error Unused value will be implemented
   private lightbulbs: Record<string, Accessory> = {};
@@ -26,7 +26,10 @@ export class TradfriService extends ISmartLightsService {
     super('TradfriService');
   }
 
-  // @ts-expect-error Unused value will be implemented
+  public onApplicationShutdown() {
+    this.logger.debug('Shutdown hook called - destroying client');
+    this.tradfriClient?.destroy();
+  }
   public async updateLight(lightId: string, operation: ISmartLightOperation): Promise<ISmartLightOperationResult> {
     const light = this.findLight(lightId);
     if (!light) {
