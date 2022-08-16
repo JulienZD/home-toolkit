@@ -1,7 +1,9 @@
-import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body, UseFilters } from '@nestjs/common';
+import { SmartLightExceptionFilter } from './filters/smart-light-exception.filter';
 import { ISmartLightsService, ISmartLightOperation } from './smart-lights.service';
 
 @Controller()
+@UseFilters(SmartLightExceptionFilter)
 export class SmartLightsController {
   constructor(private smartLightsService: ISmartLightsService) {}
 
