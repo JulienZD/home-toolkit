@@ -1,6 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TradfriService } from './providers/tradfri.service';
+import { TradfriService } from './providers/tradfri/tradfri.service';
 import { SmartLightsController } from './smart-lights.controller';
 import { ISmartLightsService } from './smart-lights.service';
 

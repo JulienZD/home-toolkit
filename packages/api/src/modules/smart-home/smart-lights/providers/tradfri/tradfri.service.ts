@@ -1,12 +1,14 @@
 import { Logger, OnApplicationShutdown } from '@nestjs/common';
-import { AccessoryTypes, discoverGateway, TradfriClient, type Accessory, type Group } from 'node-tradfri-client';
+import { discoverGateway, TradfriClient, type Accessory, type Group } from 'node-tradfri-client';
+import { LightNotFoundError } from '../../smart-light-errors';
 
 import {
   ISmartLight,
   ISmartLightOperation,
   ISmartLightOperationResult,
   ISmartLightsService,
-} from '../smart-lights.service';
+} from '../../smart-lights.service';
+import { isLightbulb } from './helpers';
 
 interface ITradfriOptions {
   securityCode: string;
@@ -15,9 +17,10 @@ interface ITradfriOptions {
   psk?: string;
 }
 
+// TODO: Extract internal connection + event listener logic to a separate class/service
 export class TradfriService extends ISmartLightsService implements OnApplicationShutdown {
   private tradfriClient!: TradfriClient;
-  // @ts-expect-error Unused value will be implemented
+
   private lightbulbs: Record<string, Accessory> = {};
   // @ts-expect-error Unused value will be implemented
   private groups: Record<string, Group> = {};
@@ -30,33 +33,44 @@ export class TradfriService extends ISmartLightsService implements OnApplication
     this.logger.debug('Shutdown hook called - destroying client');
     this.tradfriClient?.destroy();
   }
+
   public async updateLight(lightId: string, operation: ISmartLightOperation): Promise<ISmartLightOperationResult> {
-    const light = this.findLight(lightId);
+    const light = this.getLight(lightId);
     if (!light) {
-      throw new Error('Light not found');
+      throw new LightNotFoundError();
     }
 
-    await this.tradfriClient.updateDevice(light);
+    await this.tradfriClient.operateLight(light, {
+      onOff: operation.isOn,
+      dimmer: operation.brightness,
+      color: operation.color,
+      transitionTime: 0.25, // Ensure a reasonable transition speed
+    });
 
-    return {} as ISmartLightOperationResult;
+    // We can't return the updated properties, as we don't have access to them yet since it's all event-based
+    return {
+      lightId,
+      success: true,
+    };
   }
 
   public async getLights(): Promise<ISmartLight[]> {
-    return Object.values(this.tradfriClient.devices)
-      .filter((dev) => dev.type === AccessoryTypes.lightbulb)
-      .map((device) => {
-        const [light] = device.lightList;
-        return {
-          id: String(device.instanceId),
-          brightness: light.dimmer,
-          isOn: light.onOff,
-          color: light.color,
-        };
-      });
+    return Object.values(this.lightbulbs).map((device) => {
+      const [light] = device.lightList;
+      return {
+        id: String(device.instanceId),
+        name: light.name,
+        brightness: light.dimmer,
+        isOn: light.onOff,
+        color: light.color,
+      };
+    });
   }
 
   protected async establishConnection(): Promise<void> {
     this.tradfriClient = await this.authenticateAndConnect();
+
+    await this.setupListeners();
   }
 
   private async authenticateAndConnect(): Promise<TradfriClient> {
@@ -82,6 +96,7 @@ export class TradfriService extends ISmartLightsService implements OnApplication
 
       return tradfriClient;
     } catch (error) {
+      // TODO: Handle TradfriErrors
       if (error instanceof Error) {
         this.logger.error(error.message, error.stack);
       } else {
@@ -118,13 +133,42 @@ export class TradfriService extends ISmartLightsService implements OnApplication
     }
 
     this.logger.warn('No Identity / PSK pair defined. Creating a new one');
+
     const { identity, psk } = await client.authenticate(this.tradfriConfig.securityCode);
     this.logger.debug(`Created Identity / PSK pair:\nIdentity: ${identity}\nPSK: ${psk}`);
+
     return { identity, psk };
   }
 
-  // @ts-expect-error Unused value will be implemented
-  private findLight(lightId: string): Accessory | null {
-    return null;
+  private getLight(lightId: string): Accessory | undefined {
+    return this.lightbulbs[+lightId];
+  }
+
+  private async setupListeners() {
+    this.tradfriClient
+      .on('device updated', this.handleDeviceUpdated.bind(this))
+      .on('device removed', this.handleDeviceRemoved.bind(this))
+      .observeDevices();
+  }
+
+  private handleDeviceUpdated(device: Accessory) {
+    // We only care about lights
+    if (!isLightbulb(device)) return;
+
+    const [light] = device.lightList;
+    this.logger.debug(
+      `Device ${device.instanceId}: Update event > ${JSON.stringify({
+        isOn: light.onOff,
+        brightness: light.dimmer,
+      })}`
+    );
+
+    this.lightbulbs[device.instanceId] = device;
+  }
+
+  private handleDeviceRemoved(instanceId: number) {
+    this.logger.debug(`Device ${instanceId}: Remove event`);
+
+    delete this.lightbulbs[instanceId];
   }
 }

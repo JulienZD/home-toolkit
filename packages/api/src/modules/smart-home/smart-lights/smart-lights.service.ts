@@ -2,14 +2,15 @@ import { Injectable, Logger } from '@nestjs/common';
 
 export interface ISmartLight {
   id: string;
+  name: string;
   color: string;
   brightness: number;
   isOn: boolean;
 }
 
-export type ISmartLightOperation = Partial<Omit<ISmartLight, 'id'>>;
+export type ISmartLightOperation = Partial<Omit<ISmartLight, 'id' | 'name'>>;
 
-export interface ISmartLightOperationResult extends Required<ISmartLightOperation> {
+export interface ISmartLightOperationResult {
   lightId: string;
   success: boolean;
 }
@@ -23,7 +24,10 @@ export abstract class ISmartLightsService {
 
   constructor(serviceName: string) {
     this.logger = new Logger(serviceName);
-    this.establishConnection();
+    this.establishConnection().catch((error) => {
+      this.logger.error(`Setup error ${error.message}`, error.stack);
+      throw error;
+    });
   }
 
   public abstract updateLight(lightId: string, operation: ISmartLightOperation): Promise<ISmartLightOperationResult>;
