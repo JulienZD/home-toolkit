@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SmartLightsModule } from './smart-lights/smart-lights.module';
 import { SmartHomeController } from './smart-home.controller';
+import { SmartHomeGateway } from './smart-home.gateway';
 import { RouterModule } from '@nestjs/core';
 
 @Module({
@@ -13,7 +14,7 @@ import { RouterModule } from '@nestjs/core';
       },
     ]),
   ],
-  providers: [],
+  providers: [SmartHomeGateway],
   controllers: [SmartHomeController],
 })
 export class SmartHomeModule {}

@@ -11,12 +11,14 @@ import { UsersModule } from './modules/users/users.module';
 import { PrismaModule } from './providers/prisma/prisma.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SmartHomeModule } from './modules/smart-home/smart-home.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       cache: true,
     }),
+    EventEmitterModule.forRoot(),
     UsersModule,
     PrismaModule,
     SharedModule,

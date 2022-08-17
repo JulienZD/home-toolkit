@@ -1,5 +1,7 @@
 import { Logger, OnApplicationShutdown } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { discoverGateway, TradfriClient, type Accessory, type Group } from 'node-tradfri-client';
+import { omitUndefined } from '~/util/omitUndefined';
 import { LightNotFoundError } from '../../smart-light-errors';
 
 import {
@@ -25,7 +27,7 @@ export class TradfriService extends ISmartLightsService implements OnApplication
   // @ts-expect-error Unused value will be implemented
   private groups: Record<string, Group> = {};
 
-  constructor(private tradfriConfig: ITradfriOptions) {
+  constructor(private tradfriConfig: ITradfriOptions, private eventEmitter: EventEmitter2) {
     super('TradfriService');
   }
 
@@ -40,10 +42,22 @@ export class TradfriService extends ISmartLightsService implements OnApplication
       throw new LightNotFoundError();
     }
 
-    await this.tradfriClient.operateLight(light, {
+    const updateParams = omitUndefined({
       onOff: operation.isOn,
       dimmer: operation.brightness,
       color: operation.color,
+    });
+
+    if (!Object.keys(updateParams).length) {
+      return {
+        lightId,
+        success: false,
+        reason: 'No operation specified',
+      };
+    }
+
+    await this.tradfriClient.operateLight(light, {
+      ...updateParams,
       transitionTime: 0.25, // Ensure a reasonable transition speed
     });
 
@@ -59,7 +73,7 @@ export class TradfriService extends ISmartLightsService implements OnApplication
       const [light] = device.lightList;
       return {
         id: String(device.instanceId),
-        name: light.name,
+        name: device.name,
         brightness: light.dimmer,
         isOn: light.onOff,
         color: light.color,
@@ -164,6 +178,14 @@ export class TradfriService extends ISmartLightsService implements OnApplication
     );
 
     this.lightbulbs[device.instanceId] = device;
+
+    // TODO: Don't emit from this class?
+    this.eventEmitter.emit('smarthome:light.updated', {
+      id: device.instanceId,
+      brightness: light.dimmer,
+      isOn: light.onOff,
+      name: device.name,
+    });
   }
 
   private handleDeviceRemoved(instanceId: number) {

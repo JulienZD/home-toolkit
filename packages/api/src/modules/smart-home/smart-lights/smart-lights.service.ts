@@ -13,6 +13,7 @@ export type ISmartLightOperation = Partial<Omit<ISmartLight, 'id' | 'name'>>;
 export interface ISmartLightOperationResult {
   lightId: string;
   success: boolean;
+  reason?: string;
 }
 
 /**
