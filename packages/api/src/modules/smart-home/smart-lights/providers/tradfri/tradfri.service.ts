@@ -1,15 +1,11 @@
+import type { ISmartLight, ISmartLightOperation, ISmartLightOperationResult } from '@home-toolkit/types/smart-home';
 import { Logger, OnApplicationShutdown } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { discoverGateway, TradfriClient, type Accessory, type Group } from 'node-tradfri-client';
 import { omitUndefined } from '~/util/omitUndefined';
 import { LightNotFoundError } from '../../smart-light-errors';
 
-import {
-  ISmartLight,
-  ISmartLightOperation,
-  ISmartLightOperationResult,
-  ISmartLightsService,
-} from '../../smart-lights.service';
+import { ISmartLightsService } from '../../smart-lights.service';
 import { isLightbulb } from './helpers';
 
 interface ITradfriOptions {

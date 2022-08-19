@@ -1,6 +1,7 @@
+import type { ISmartLightOperation } from '@home-toolkit/types/smart-home';
 import { Controller, Get, Patch, Param, Body, UseFilters } from '@nestjs/common';
 import { SmartLightExceptionFilter } from './filters/smart-light-exception.filter';
-import { ISmartLightsService, ISmartLightOperation } from './smart-lights.service';
+import { ISmartLightsService } from './smart-lights.service';
 
 @Controller()
 @UseFilters(SmartLightExceptionFilter)

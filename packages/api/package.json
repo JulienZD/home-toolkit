@@ -1,5 +1,5 @@
 {
-  "name": "home-toolkit-backend",
+  "name": "@home-toolkit/backend",
   "version": "0.0.1",
   "description": "A NestJS backend.",
   "private": true,
@@ -47,6 +47,7 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@home-toolkit/types": "workspace:^",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.1",
     "@nestjs/testing": "^9.0.9",

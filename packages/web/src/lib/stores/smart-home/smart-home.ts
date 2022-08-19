@@ -1,4 +1,5 @@
 import { derived, get, writable } from 'svelte/store';
+import type { ISmartLight } from '@home-toolkit/types/smart-home';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import { auth } from '../auth';
 import { createSocket } from './socket';
@@ -22,15 +23,8 @@ const socketWithAuth = derived(auth, ($authToken) => {
   return socket;
 });
 
-interface LightInfo {
-  id: string;
-  name: string;
-  brightness: number;
-  isOn: boolean;
-}
-
 interface SmartHomeStore {
-  lights: Record<string, LightInfo>;
+  lights: Record<string, ISmartLight>;
 }
 
 const smartHomeStore = writable<SmartHomeStore>({ lights: {} });
@@ -38,7 +32,7 @@ const smartHomeStore = writable<SmartHomeStore>({ lights: {} });
 const createSmartHome = () => {
   const $socket = get(socketWithAuth);
 
-  const updateLight = (light: LightInfo) => {
+  const updateLight = (light: ISmartLight) => {
     smartHomeStore.update((curr) => {
       return {
         ...curr,
@@ -60,13 +54,13 @@ const createSmartHome = () => {
       },
     });
     if (res.ok) {
-      const data = (await res.json()) as LightInfo[];
+      const data = (await res.json()) as ISmartLight[];
 
       data.forEach(updateLight);
     }
   });
 
-  $socket?.on('lightUpdate', (lightUpdate: LightInfo) => {
+  $socket?.on('lightUpdate', (lightUpdate: ISmartLight) => {
     updateLight(lightUpdate);
   });
 

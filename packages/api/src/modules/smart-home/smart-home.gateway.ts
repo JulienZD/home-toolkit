@@ -1,3 +1,4 @@
+import type { ISmartLightOperation } from '@home-toolkit/types/smart-home';
 import { Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
@@ -9,7 +10,6 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { ISmartLightOperation } from './smart-lights/smart-lights.service';
 
 @WebSocketGateway({
   cors: true,
