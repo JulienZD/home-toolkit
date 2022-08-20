@@ -1,6 +1,6 @@
 import { derived, writable } from 'svelte/store';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
-import axios from 'axios';
+import { api } from '$lib/api/http';
 import jwtDecode from 'jwt-decode';
 
 const baseUrl = PUBLIC_BASE_API_URL;
@@ -25,15 +25,15 @@ const createAuth = () => {
     subscribe,
     logout: () => setAuthToken(null),
     login: async (email: string, password: string) => {
-      const { data } = await axios.post<{ accessToken: string; user: Record<string, string> }>(
-        `${baseUrl}/authentication/login`,
-        {
+      const { accessToken } = await api.post<
+        { email: string; password: string },
+        { accessToken: string; user: Record<string, string> }
+      >('authentication/login', {
+        json: {
           email,
           password,
-        }
-      );
-
-      const { accessToken } = data;
+        },
+      });
 
       setAuthToken(accessToken);
     },
