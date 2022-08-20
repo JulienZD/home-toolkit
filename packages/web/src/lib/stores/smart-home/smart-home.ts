@@ -1,36 +1,19 @@
-import { derived, get, writable } from 'svelte/store';
-import type { ISmartLight } from '@home-toolkit/types/smart-home';
+import type { ISmartLight, ISmartLightOperation } from '@home-toolkit/types/smart-home';
+import { get, writable } from 'svelte/store';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
-import { auth } from '../auth';
-import { createSocket } from './socket';
-
-const socket = createSocket('/smart-home/ws', {
-  autoConnect: false,
-});
-
-const socketWithAuth = derived(auth, ($authToken) => {
-  if (!$authToken) {
-    socket.close();
-    return;
-  }
-
-  socket.auth = {
-    token: $authToken,
-  };
-
-  socket.connect();
-
-  return socket;
-});
+import { createAuthenticatedSocket } from '../authSocket';
 
 interface SmartHomeStore {
   lights: Record<string, ISmartLight>;
 }
 
+const SMART_HOME_PATH = 'smart-home';
 const smartHomeStore = writable<SmartHomeStore>({ lights: {} });
 
+const socket = createAuthenticatedSocket(`/${SMART_HOME_PATH}/ws`);
+
 const createSmartHome = () => {
-  const $socket = get(socketWithAuth);
+  const $socket = get(socket);
 
   const updateLight = (light: ISmartLight) => {
     smartHomeStore.update((curr) => {
