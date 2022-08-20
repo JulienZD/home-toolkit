@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button, Center, Container, Paper, Stack, TextInput, Title } from '@svelteuidev/core';
   import { auth } from '$lib/stores/auth';
-  import { createAxiosErrorHandler } from '$lib/util/handleAxiosError';
+  import { createHTTPErrorHandler } from '$lib/util/handleHTTPError';
   import { goto } from '$app/navigation';
 
   let email: string;
@@ -23,10 +23,10 @@
     try {
       await auth.login(email, password);
     } catch (error) {
-      const handleError = createAxiosErrorHandler(({ type, error, responseStatus }) => {
+      const handleError = createHTTPErrorHandler(({ type, error, responseStatus }) => {
         if (type === 'validation-error') {
           errors = error.response?.data?.fieldErrors ?? {};
-        } else if (type === 'axios') {
+        } else if (type === 'http') {
           generalError = responseStatus === 401 ? 'Invalid credentials' : error.message;
         } else {
           generalError = type === 'error' ? error.message : 'An unknown error occurred';

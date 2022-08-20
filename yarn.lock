@@ -818,12 +818,12 @@ __metadata:
     "@svelteuidev/core": ^0.7.0
     "@typescript-eslint/eslint-plugin": ^5.27.0
     "@typescript-eslint/parser": ^5.27.0
-    axios: ^0.27.2
     broadcast-channel: ^4.14.0
     eslint: ^8.16.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-svelte3: ^4.0.0
     jwt-decode: ^3.1.2
+    ky: ^0.31.1
     prettier: ^2.6.2
     prettier-plugin-svelte: ^2.7.0
     socket.io-client: ^4.5.1
@@ -2856,16 +2856,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.27.2":
-  version: 0.27.2
-  resolution: "axios@npm:0.27.2"
-  dependencies:
-    follow-redirects: ^1.14.9
-    form-data: ^4.0.0
-  checksum: 38cb7540465fe8c4102850c4368053c21683af85c5fdf0ea619f9628abbcb59415d1e22ebc8a6390d2bbc9b58a9806c874f139767389c862ec9b772235f06854
-  languageName: node
-  linkType: hard
-
 "babel-jest@npm:^28.1.3":
   version: 28.1.3
   resolution: "babel-jest@npm:28.1.3"
@@ -4869,16 +4859,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.9":
-  version: 1.15.1
-  resolution: "follow-redirects@npm:1.15.1"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 6aa4e3e3cdfa3b9314801a1cd192ba756a53479d9d8cca65bf4db3a3e8834e62139245cd2f9566147c8dfe2efff1700d3e6aefd103de4004a7b99985e71dd533
-  languageName: node
-  linkType: hard
-
 "fork-ts-checker-webpack-plugin@npm:7.2.11":
   version: 7.2.11
   resolution: "fork-ts-checker-webpack-plugin@npm:7.2.11"
@@ -6431,6 +6411,13 @@ __metadata:
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
+  languageName: node
+  linkType: hard
+
+"ky@npm:^0.31.1":
+  version: 0.31.1
+  resolution: "ky@npm:0.31.1"
+  checksum: c1ca2c60bad649d38c8545fb781851f76b9a6080bead35827ce0ebb1cc7483bd951cc327af0524f17dac1e887ef4f2d81b4d1b5b54ca37baa7d4c9caf0dba5d2
   languageName: node
   linkType: hard
 

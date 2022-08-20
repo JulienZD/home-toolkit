@@ -1,25 +1,23 @@
-import type { AxiosError } from 'axios';
-import axios from 'axios';
-import { isAxiosApiError } from './type-guards/api/isAxiosApiError';
+import { HTTPError } from 'ky';
 
-interface IAxiosApiBadRequestError extends Omit<AxiosError, 'response'> {
+interface IApiBadRequestError extends Omit<HTTPError, 'response'> {
   response: {
     status: 400 | 422;
     data: {
       fieldErrors: Record<string, string[]>;
       [key: string]: unknown;
     };
-  } & AxiosError['response'];
+  } & HTTPError['response'];
 }
 
-type IPossibleAxiosError =
+type IPossibleHTTPError =
   | {
-      error: AxiosError;
+      error: HTTPError;
       responseStatus: number;
-      type: 'axios';
+      type: 'http';
     }
   | {
-      error: IAxiosApiBadRequestError;
+      error: IApiBadRequestError;
       responseStatus: 400 | 422;
       type: 'validation-error';
     }
@@ -35,15 +33,15 @@ type IPossibleAxiosError =
     };
 
 /**
- * Handles Axios errors by safely narrowing the type down to be used in the callback
+ * Handles HTTP errors by safely narrowing the type down to be used in the callback
  * @param callback The actual error handler which can safely determine the error type
  *
  * Meant to be used as the direct argument to `Promise.catch()`
  * @example
- * await axios.get(endpoint).catch(
- *   handleAxiosError((result) => {
- *     if (result.type === 'axios-error') {
- *       // ...handle axios error
+ * await api.get(endpoint).catch(
+ *   handleHTTPError((result) => {
+ *     if (result.type === 'http') {
+ *       // ...handle HTTP error
  *     }
  *     else if (result.type === ...) {
  *       // ...handle other error
@@ -51,12 +49,12 @@ type IPossibleAxiosError =
  *  })
  * );
  */
-export const handleAxiosError =
-  (callback: (err: IPossibleAxiosError) => void) => (error: unknown | Error | AxiosError) => {
-    if (isAxiosApiError(error)) {
+export const handleHTTPError =
+  (callback: (err: IPossibleHTTPError) => void) => (error: unknown | Error | HTTPError) => {
+    if (error instanceof HTTPError) {
       if (error.response.status === 400 || error.response.status === 422) {
         return void callback({
-          error: error as IAxiosApiBadRequestError,
+          error: error as IApiBadRequestError,
           responseStatus: error.response.status,
           type: 'validation-error',
         });
@@ -65,7 +63,7 @@ export const handleAxiosError =
       return void callback({
         error,
         responseStatus: error.response.status,
-        type: 'axios',
+        type: 'http',
       });
     }
 
@@ -77,17 +75,17 @@ export const handleAxiosError =
   };
 
 /**
- * Creates an error Axios handler Handles Axios errors by safely narrowing the type down to be used in the callback
+ * Creates an error HTTP handler which safely narrows the error type down
  * @param callback The actual error handler which can safely determine the error type
  *
  * Meant to be used within a try-catch
  * @example
  * try {
- *   await axios.get(endpoint);
+ *   await api.get(endpoint);
  * } catch (error) {
- *   const handleError = createAxiosErrorHandler((result) => {
- *     if (result.type === 'axios-error') {
- *       // ...handle axios error
+ *   const handleError = createHTTPErrorHandler((result) => {
+ *     if (result.type === 'http') {
+ *       // ...handle HTTP error
  *     }
  *     else if (result.type === ...) {
  *       // ...handle other error
@@ -97,4 +95,4 @@ export const handleAxiosError =
  *   handleError(error);
  * }
  */
-export const createAxiosErrorHandler = handleAxiosError;
+export const createHTTPErrorHandler = handleHTTPError;

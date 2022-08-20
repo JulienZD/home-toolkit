@@ -34,9 +34,9 @@
     "@sveltestack/svelte-query": "^1.6.0",
     "@svelteuidev/composables": "^0.7.0",
     "@svelteuidev/core": "^0.7.0",
-    "axios": "^0.27.2",
     "broadcast-channel": "^4.14.0",
     "jwt-decode": "^3.1.2",
+    "ky": "^0.31.1",
     "socket.io-client": "^4.5.1",
     "svelte-feather-icons": "^4.0.0",
     "svelte-notifications": "^0.9.96"

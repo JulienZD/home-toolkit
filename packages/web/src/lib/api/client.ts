@@ -1,46 +1,34 @@
 import { QueryClient, type QueryFunctionContext } from '@sveltestack/svelte-query';
-import { PUBLIC_BASE_API_URL } from '$env/static/public';
+import { api } from './http';
 import { auth } from '$lib/stores/auth';
-import axios from 'axios'; // Can't use named import for { Axios } here or Vite will complain :shrug:
-
-let authToken: string | undefined;
-
-const axiosClient = new axios.Axios({
-  baseURL: PUBLIC_BASE_API_URL,
-  headers: {
-    Authorization: authToken ? `Bearer ${authToken}` : '',
-    'Content-Type': 'application/json',
-  },
-});
 
 const defaultQueryFn = async <T>({ queryKey }: QueryFunctionContext) => {
   const [key] = queryKey as string[];
-  const path = key.startsWith('/') ? key : `/${key}`;
+  const path = key.startsWith('/') ? key.slice(1) : key;
 
-  const { data } = await axiosClient.get<T>(path);
-  return data;
+  return api.get<T>(path);
 };
-
-// const defaultMutationFn: MutationFunction = async ({ queryKey }) => {
-//   const { data } = await axios.get(`${baseUrl}${queryKey[0]}`)
-//   return data;
-// }
 
 export const queryClient = new QueryClient({
   defaultOptions: {
-    // mutations: {
-    //   mutationFn: defaultMutationFn,
-    // },
     queries: {
-      enabled: authToken !== undefined,
+      enabled: false,
       queryFn: defaultQueryFn,
     },
   },
 });
 
 auth.subscribe((token) => {
+  const defaultOpts = queryClient.getDefaultOptions();
+  queryClient.setDefaultOptions({
+    ...defaultOpts,
+    queries: {
+      ...defaultOpts.queries,
+      enabled: !!token,
+    },
+  });
+
   if (token) {
-    authToken = token;
     void queryClient.refetchQueries({ active: false });
   }
 });
