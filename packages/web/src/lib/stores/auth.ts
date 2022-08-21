@@ -1,9 +1,7 @@
 import { derived, writable } from 'svelte/store';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
-import { api } from '$lib/api/http';
 import jwtDecode from 'jwt-decode';
-
-const baseUrl = PUBLIC_BASE_API_URL;
+import ky from 'ky';
 
 const getFromLocalStorage = (key: string) => {
   if (typeof window !== 'undefined') {
@@ -25,15 +23,16 @@ const createAuth = () => {
     subscribe,
     logout: () => setAuthToken(null),
     login: async (email: string, password: string) => {
-      const { accessToken } = await api.post<
-        { email: string; password: string },
-        { accessToken: string; user: Record<string, string> }
-      >('authentication/login', {
-        json: {
-          email,
-          password,
-        },
-      });
+      // Raw call as we have an infinite import cycle otherwise (httpClient depends on this store)
+      const { accessToken } = await ky
+        .post('authentication/login', {
+          prefixUrl: PUBLIC_BASE_API_URL,
+          json: {
+            email,
+            password,
+          },
+        })
+        .json<{ accessToken: string; user: Record<string, string> }>();
 
       setAuthToken(accessToken);
     },
