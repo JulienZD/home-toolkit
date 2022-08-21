@@ -3,7 +3,11 @@ const daisyui = require('daisyui');
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
-
+  safelist: [
+    {
+      pattern: /alert-(error|success|info|warning)/
+    },
+  ],
   theme: {
     container: {
       center: true,

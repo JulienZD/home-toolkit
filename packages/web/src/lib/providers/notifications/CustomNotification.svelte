@@ -21,7 +21,7 @@
 
 <div
   transition:fly={{ x: 100, duration: 150 }}
-  class={`flex flex-col items-start min-w-[6rem] justify-start gap-0.5 alert relative mt-1 alert-error !right-1 !bottom-1 alert-${
+  class={`flex flex-col items-start min-w-[6rem] justify-start gap-0.5 alert relative mt-1 !right-1 !bottom-1 alert-${
     colorMap[notification.type] ? colorMap[notification.type] : 'info'
   }`}
 >
