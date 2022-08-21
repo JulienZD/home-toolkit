@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Button, Center, Container, Paper, Stack, TextInput, Title } from '@svelteuidev/core';
   import { auth } from '$lib/stores/auth';
   import { createHTTPErrorHandler } from '$lib/util/handleHTTPError';
   import { goto } from '$app/navigation';
+  import TextInput from '$lib/components/ui/form/TextInput.svelte';
 
   let email: string;
   let password: string;
@@ -38,42 +38,18 @@
   };
 </script>
 
-<Container
-  fluid
-  override={{
-    '@sm': {
-      px: 0,
-    },
-    h: '100%',
-  }}
->
-  <Center
-    override={{
-      h: '100%',
-    }}
-  >
-    <Paper
-      override={{
-        w: '100%',
-        '@md': {
-          w: '40%',
-        },
-        '@xs': {
-          w: '66%',
-        },
-      }}
-    >
-      <Title align="center">Login</Title>
-      <form on:submit|preventDefault={handleLogin}>
-        <Stack spacing="lg">
-          {#if generalError}
-            <p>{generalError}</p>
-          {/if}
-          <TextInput label="Email" type="email" bind:value={email} error={errors?.['email']?.[0]} />
-          <TextInput label="Password" type="password" bind:value={password} error={errors?.['password']?.[0]} />
-          <Button type="submit">Login</Button>
-        </Stack>
-      </form>
-    </Paper>
-  </Center>
-</Container>
+<div class="h-full flex items-center justify-center">
+  <div class="w-full sm:w-2/3 md:w-2/5 p-4 rounded bg-base-200  max-w-md">
+    <h1 class="text-center text-4xl">Login</h1>
+    <form on:submit|preventDefault={handleLogin}>
+      <div class="flex flex-col gap-5">
+        {#if generalError}
+          <p>{generalError}</p>
+        {/if}
+        <TextInput label="Email" type="email" bind:value={email} error={errors?.['email']?.[0]} />
+        <TextInput label="Password" type="password" bind:value={password} error={errors?.['password']?.[0]} />
+        <button class="btn btn-primary" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

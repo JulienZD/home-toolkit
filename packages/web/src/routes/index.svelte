@@ -1,5 +1,1 @@
-<script lang="ts">
-  import { Title } from '@svelteuidev/core';
-</script>
-
-<Title>Home</Title>
+<h1>Home</h1>

@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Remove when SvelteUI v0.8.0 releases with their own Slider component
-  import { createStyles } from '@svelteuidev/core';
-
   import { createEventDispatcher } from 'svelte';
 
   export let min: number;
@@ -14,26 +11,14 @@
     dispatch('change', value);
   };
 
-  const useStyles = createStyles((theme) => ({
-    root: {},
-    slider: {
-      '@xs': {
-        width: 'initial !important',
-      },
-      width: '100%',
-    },
-  }));
-
   let showValue = false;
 
   const toggleShowValue = () => (showValue = !showValue);
-
-  $: ({ classes, getStyles } = useStyles());
 </script>
 
-<div class={getStyles()}>
+<div>
   <input
-    class={classes.slider}
+    class="w-full sm:w-auto"
     type="range"
     {min}
     {max}

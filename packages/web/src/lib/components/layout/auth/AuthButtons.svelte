@@ -1,15 +1,11 @@
 <script lang="ts">
-  import { Button, Group } from '@svelteuidev/core';
-  import AppLink from '$lib/components/ui/AppLink.svelte';
   import { auth } from '$lib/stores/auth';
 
   const logout = () => auth.logout();
 </script>
 
-<Group>
-  {#if !$auth}
-    <AppLink href="/auth/login">Login</AppLink>
-  {:else}
-    <Button on:click={logout} variant="light">Logout</Button>
-  {/if}
-</Group>
+{#if !$auth}
+  <a role="button" class="btn btn-link hover:no-underline" href="/auth/login">Login</a>
+{:else}
+  <button class="btn btn-ghost" on:click={logout}>Logout</button>
+{/if}

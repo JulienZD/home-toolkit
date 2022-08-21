@@ -18,14 +18,19 @@ export interface NotificationOptions {
 
   /**
    * The notification type
-   * @default 'success'
+   * @default 'info'
    */
-  type?: 'success' | 'warning' | 'danger';
+  type?: 'success' | 'warning' | 'danger' | 'info';
+
+  /**
+   * Time in ms after which to remove the notification
+   * @default 5000
+   */
+  removeAfter?: number;
 }
 
 /**
  * Basic notification system interface made after {@link https://mantine.dev/others/notifications @mantine/notifications}
- * in preparation for SvelteUI's notification system
  */
 export const useNotifications = () => {
   const notifications = getNotificationsContext();
@@ -36,13 +41,13 @@ export const useNotifications = () => {
   }
 
   const showNotification = (options: NotificationOptions) => {
-    const { title: text, ...otherOptions } = options;
+    const { title: text, removeAfter, ...otherOptions } = options;
 
     notifications.addNotification({
       text,
       title: options.title,
-      type: 'success',
-      removeAfter: 5000,
+      type: 'info',
+      removeAfter: removeAfter ?? 5000,
       position: 'bottom-right',
       ...otherOptions,
     });
