@@ -1,27 +1,21 @@
 import { derived, writable } from 'svelte/store';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
+import { browser } from '$app/env';
 import jwtDecode from 'jwt-decode';
 import ky from 'ky';
 
-const getFromLocalStorage = (key: string) => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem(key);
-  }
-};
-
-const persistToLocalStorage = (key: string, value: string) => {
-  if (typeof window !== 'undefined') {
-    return localStorage.setItem(key, value);
-  }
-};
+const LOCAL_STORAGE_ACCESS_TOKEN_KEY = 'accessToken';
 
 const createAuth = () => {
-  const existingToken = getFromLocalStorage('accessToken');
+  const existingToken = (browser && localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)) || null;
   const { subscribe, set: setAuthToken } = writable<string | null>(existingToken);
 
   return {
     subscribe,
-    logout: () => setAuthToken(null),
+    logout: () => {
+      setAuthToken(null);
+      browser && localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY);
+    },
     login: async (email: string, password: string) => {
       // Raw call as we have an infinite import cycle otherwise (httpClient depends on this store)
       const { accessToken } = await ky
@@ -35,6 +29,7 @@ const createAuth = () => {
         .json<{ accessToken: string; user: Record<string, string> }>();
 
       setAuthToken(accessToken);
+      browser && localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY, accessToken);
     },
   };
 };
@@ -43,17 +38,14 @@ export const auth = createAuth();
 
 export const user = derived(auth, ($authToken) => {
   if (!$authToken) {
-    persistToLocalStorage('accessToken', '');
     return null;
   }
 
   try {
-    const data = jwtDecode($authToken);
-
-    // We know it's a valid token at this point
-    persistToLocalStorage('accessToken', $authToken);
-    return data as { username: string };
+    return jwtDecode<{ username: string }>($authToken);
   } catch {
+    // Malformed JWT means that this isn't a valid user
+    browser && localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     return null;
   }
 });
