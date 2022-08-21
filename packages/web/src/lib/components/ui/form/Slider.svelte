@@ -11,23 +11,23 @@
     dispatch('change', value);
   };
 
-  let showValue = false;
-
-  const toggleShowValue = () => (showValue = !showValue);
+  let focused = false;
+  const toggleFocused = () => (focused = !focused);
 </script>
 
 <div>
   <input
-    class="w-full sm:w-auto"
+    class="w-full sm:w-auto range range-sm range-primary"
+    class-focused={focused}
     type="range"
     {min}
     {max}
     bind:value
-    on:mousedown={toggleShowValue}
-    on:mouseup={toggleShowValue}
+    on:mousedown={toggleFocused}
+    on:mouseup={toggleFocused}
     on:change={emitValue}
   />
-  {#if showValue}
+  {#if focused}
     <span>{value}</span>
   {/if}
 </div>

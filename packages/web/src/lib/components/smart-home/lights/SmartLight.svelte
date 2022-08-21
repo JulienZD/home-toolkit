@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AppSlider from '$lib/components/ui/form/AppSlider.svelte';
+  import Slider from '$lib/components/ui/form/Slider.svelte';
   import Toggle from '$lib/components/ui/form/Toggle.svelte';
   import { smartHome } from '$lib/stores/smart-home/smart-home';
   import type { ISmartLight } from '@home-toolkit/types/smart-home';
@@ -19,7 +19,7 @@
   <p class="font-bold text-lg mb-2">{light.name}</p>
   <Toggle on:click={toggleLight} bind:checked={light.isOn} label="Enabled" />
 
-  <AppSlider min={0} max={100} value={light.brightness} on:change={(e) => setBrightness(e.detail)} />
+  <Slider min={0} max={100} value={light.brightness} on:change={(e) => setBrightness(e.detail)} />
 
   <p class="text-sm mt-2">Brightness: {light.brightness.toFixed()}</p>
 </div>
