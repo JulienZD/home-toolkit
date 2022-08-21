@@ -16,3 +16,11 @@
     @apply text-lg;
   }
 }
+
+@layer components {
+
+  button,
+  .btn:not(.btn-primary) {
+    @apply text-base-content;
+  }
+}

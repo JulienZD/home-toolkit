@@ -13,6 +13,7 @@
   import { page } from '$app/stores';
   import AuthButtons from '../layout/auth/AuthButtons.svelte';
   import { pagesWithoutSidebar } from '$lib/data/pages';
+  import ThemeSwitcher from './ThemeSwitcher.svelte';
 
   $: noNavbar = pagesWithoutSidebar.includes($page.url.pathname);
 
@@ -66,6 +67,7 @@
       </div>
     </div>
     <div class="flex-0">
+      <ThemeSwitcher />
       <AuthButtons />
     </div>
   </nav>

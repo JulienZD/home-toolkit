@@ -819,6 +819,7 @@ __metadata:
     svelte-notifications: ^0.9.96
     svelte-preprocess: ^4.10.7
     tailwindcss: ^3.1.5
+    theme-change: ^2.2.0
     tslib: ^2.3.1
     typescript: ^4.7.4
     vite: ^3.0.0
@@ -9530,6 +9531,13 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: b6937a38c80c7f84d9c11dd75e49d5c44f71d95e810a3250bd1f1797fc7117c57698204adf676b71497acc205d769d65c16ae8fa10afad832ae1322630aef10a
+  languageName: node
+  linkType: hard
+
+"theme-change@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "theme-change@npm:2.2.0"
+  checksum: 552b03564dda9fcc12cf07693a7a4d6b21b5be701403ce6972a118ed9aa06d707a3e4dd2df625e1e2e4b94387dd1fab64638c5aa32c4c0ab175b0cdec9d24619
   languageName: node
   linkType: hard
 

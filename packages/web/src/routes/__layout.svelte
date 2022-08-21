@@ -12,7 +12,7 @@
   import { queryClient } from '$lib/api/client';
   import NotificationProvider from '$lib/providers/notifications/NotificationProvider.svelte';
   import { QueryClientProvider } from '@sveltestack/svelte-query';
-  import { pagesWithoutSidebar } from '$lib/data';
+  import { pagesWithoutSidebar } from '$lib/data/pages';
 
   let drawerContentRef: HTMLDivElement;
   let drawerContentScrollY = 0;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { pages } from '$lib/data';
+  import { pages } from '$lib/data/pages';
 
   export let closeDrawer: () => void;
 
