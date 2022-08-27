@@ -795,8 +795,8 @@ __metadata:
   resolution: "@home-toolkit/web@workspace:packages/web"
   dependencies:
     "@home-toolkit/types": "workspace:^"
-    "@sveltejs/adapter-auto": next
-    "@sveltejs/kit": next
+    "@sveltejs/adapter-auto": 1.0.0-next.66
+    "@sveltejs/kit": 1.0.0-next.444
     "@sveltestack/svelte-query": ^1.6.0
     "@typescript-eslint/eslint-plugin": ^5.27.0
     "@typescript-eslint/parser": ^5.27.0
@@ -1525,6 +1525,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polka/url@npm:^1.0.0-next.20":
+  version: 1.0.0-next.21
+  resolution: "@polka/url@npm:1.0.0-next.21"
+  checksum: c7654046d38984257dd639eab3dc770d1b0340916097b2fac03ce5d23506ada684e05574a69b255c32ea6a144a957c8cd84264159b545fca031c772289d88788
+  languageName: node
+  linkType: hard
+
 "@prisma/client@npm:^4.2.1":
   version: 4.2.1
   resolution: "@prisma/client@npm:4.2.1"
@@ -1595,64 +1602,72 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-auto@npm:next":
-  version: 1.0.0-next.64
-  resolution: "@sveltejs/adapter-auto@npm:1.0.0-next.64"
+"@sveltejs/adapter-auto@npm:1.0.0-next.66":
+  version: 1.0.0-next.66
+  resolution: "@sveltejs/adapter-auto@npm:1.0.0-next.66"
   dependencies:
-    "@sveltejs/adapter-cloudflare": 1.0.0-next.31
-    "@sveltejs/adapter-netlify": 1.0.0-next.71
-    "@sveltejs/adapter-vercel": 1.0.0-next.66
-  checksum: 690055556d1987aec7718dd1210a95ceae72958fb899104e25a02080a06d89ec1f795997f7fbddb07b9f5cc0352c3d8a1cac3d405e2867471de0d175cefe4b0f
+    "@sveltejs/adapter-cloudflare": 1.0.0-next.32
+    "@sveltejs/adapter-netlify": 1.0.0-next.72
+    "@sveltejs/adapter-vercel": 1.0.0-next.68
+  checksum: 9ea58449ce2b115535f11f92b59d217ca1b10ff2e49c871008d990b858a0f7f253151fa4a21ce583afb05f281042cab67d5324db71720d4a04253e4d8b2c39d8
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-cloudflare@npm:1.0.0-next.31":
-  version: 1.0.0-next.31
-  resolution: "@sveltejs/adapter-cloudflare@npm:1.0.0-next.31"
+"@sveltejs/adapter-cloudflare@npm:1.0.0-next.32":
+  version: 1.0.0-next.32
+  resolution: "@sveltejs/adapter-cloudflare@npm:1.0.0-next.32"
   dependencies:
     "@cloudflare/workers-types": ^3.14.0
     esbuild: ^0.14.48
     worktop: 0.8.0-next.14
-  checksum: fad1a695f8e666892894a0d2cc716ca64231570ada3f702bb4dc08d51aaaa186c3bf4eac74467895dd0fd31b8e9071f33a9496a05c3a226dc338bb8a1a6aa882
+  checksum: 369b54125294e6a3c2730fdc327721d2eb1d9e7c27b902d8c66c93535e383dd35aac3437f8501cbfc58c52921eef20862389195d768e6069ea9bd7177eac1a1e
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-netlify@npm:1.0.0-next.71":
-  version: 1.0.0-next.71
-  resolution: "@sveltejs/adapter-netlify@npm:1.0.0-next.71"
+"@sveltejs/adapter-netlify@npm:1.0.0-next.72":
+  version: 1.0.0-next.72
+  resolution: "@sveltejs/adapter-netlify@npm:1.0.0-next.72"
   dependencies:
     "@iarna/toml": ^2.2.5
     esbuild: ^0.14.48
     set-cookie-parser: ^2.4.8
     tiny-glob: ^0.2.9
-  checksum: 4eaaaaef1b434ec788e5d7ea3d195362f24b117d8a7e44c7ea521eb19044a2d79d401eea49ffdfcf366d65fd9ecab9079ea46cfea46d6476abd8150248bf028b
+  checksum: e48407eff07e3e1182ed4c43e455b98e69fb943417afcbfb4b6331da662b436799cf4bcd1ab901f3f8c62b71802f6ef3f87e7215ef1594ce7dd8aed52b0d3515
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-vercel@npm:1.0.0-next.66":
-  version: 1.0.0-next.66
-  resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.66"
+"@sveltejs/adapter-vercel@npm:1.0.0-next.68":
+  version: 1.0.0-next.68
+  resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.68"
   dependencies:
     "@vercel/nft": ^0.21.0
     esbuild: ^0.14.48
-  checksum: 7193daaefa78932889a666268e9c7124f988f6fb7528fdd5a9ca92396c38418b609374707f47d1210e71d7d18c32bb063a5614c5157045b1e9399fca872c2bd5
+  checksum: a3865b1d7b036318532f7f4e24b9933d99b1877905b39d7c3c8cd737251a447390f871adbaeea5505ae942eeeda741a247d37927421b96ce3a431c793412a174
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:next":
-  version: 1.0.0-next.405
-  resolution: "@sveltejs/kit@npm:1.0.0-next.405"
+"@sveltejs/kit@npm:1.0.0-next.444":
+  version: 1.0.0-next.444
+  resolution: "@sveltejs/kit@npm:1.0.0-next.444"
   dependencies:
     "@sveltejs/vite-plugin-svelte": ^1.0.1
-    chokidar: ^3.5.3
+    cookie: ^0.5.0
+    devalue: ^2.0.1
+    kleur: ^4.1.4
+    magic-string: ^0.26.2
+    mime: ^3.0.0
+    node-fetch: ^3.2.4
     sade: ^1.8.1
+    set-cookie-parser: ^2.4.8
+    sirv: ^2.0.2
     tiny-glob: ^0.2.9
+    undici: ^5.8.1
   peerDependencies:
     svelte: ^3.44.0
     vite: ^3.0.0
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 3b16b441b46c9b96cedd57f88644fe1c8d060acf9f3abeeba430fa295f14ed41a2ecea563e28caddd7103af6cb8edfdceffe2aee0f816ddb4f5877d9030df51c
+  checksum: 3c8207e86d001f6d80fbe0f5b6177a0d40c081f002794023f860d9a3ab322ce74ad53a42940cf3d861120a8d3aac08f23cc1c025fa7306097f1999d34174f250
   languageName: node
   linkType: hard
 
@@ -3662,7 +3677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.5.0":
+"cookie@npm:0.5.0, cookie@npm:^0.5.0":
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
@@ -3783,6 +3798,13 @@ __metadata:
   version: 7.0.0
   resolution: "dargs@npm:7.0.0"
   checksum: b8f1e3cba59c42e1f13a114ad4848c3fc1cf7470f633ee9e9f1043762429bc97d91ae31b826fb135eefde203a3fdb20deb0c0a0222ac29d937b8046085d668d1
+  languageName: node
+  linkType: hard
+
+"data-uri-to-buffer@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "data-uri-to-buffer@npm:4.0.0"
+  checksum: a010653869abe8bb51259432894ac62c52bf79ad761d418d94396f48c346f2ae739c46b254e8bb5987bded8a653d467db1968db3a69bab1d33aa5567baa5cfc7
   languageName: node
   linkType: hard
 
@@ -3959,6 +3981,13 @@ __metadata:
   bin:
     detective: bin/detective.js
   checksum: dc4601bbc6be850edb3c2dab7a0eaf5a6169a15ad201679c66d40ea1986df816eeaecd590047f15b0780285f3eeea13b82dca0d4c52a47e744a571e326a72dc9
+  languageName: node
+  linkType: hard
+
+"devalue@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "devalue@npm:2.0.1"
+  checksum: 94bedfba0311b3404ca3281180c56baf0259481b8411eae1cae8ffd5741e1add47092d560c2ea9091086c9eef940a887a3ce86c63128d9c310b7486002762a08
   languageName: node
   linkType: hard
 
@@ -4893,6 +4922,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
+  version: 3.2.0
+  resolution: "fetch-blob@npm:3.2.0"
+  dependencies:
+    node-domexception: ^1.0.0
+    web-streams-polyfill: ^3.0.3
+  checksum: f19bc28a2a0b9626e69fd7cf3a05798706db7f6c7548da657cbf5026a570945f5eeaedff52007ea35c8bcd3d237c58a20bf1543bc568ab2422411d762dd3d5bf
+  languageName: node
+  linkType: hard
+
 "figures@npm:^3.0.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
@@ -5013,6 +5052,15 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
+  languageName: node
+  linkType: hard
+
+"formdata-polyfill@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "formdata-polyfill@npm:4.0.10"
+  dependencies:
+    fetch-blob: ^3.1.2
+  checksum: 82a34df292afadd82b43d4a740ce387bc08541e0a534358425193017bf9fb3567875dc5f69564984b1da979979b70703aa73dee715a17b6c229752ae736dd9db
   languageName: node
   linkType: hard
 
@@ -6541,7 +6589,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kleur@npm:^4.1.5":
+"kleur@npm:^4.1.4, kleur@npm:^4.1.5":
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
@@ -6994,6 +7042,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mime@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mime@npm:3.0.0"
+  bin:
+    mime: cli.js
+  checksum: f43f9b7bfa64534e6b05bd6062961681aeb406a5b53673b53b683f27fcc4e739989941836a355eef831f4478923651ecc739f4a5f6e20a76487b432bfd4db928
+  languageName: node
+  linkType: hard
+
 "mimic-fn@npm:^2.1.0":
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
@@ -7316,6 +7373,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-domexception@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "node-domexception@npm:1.0.0"
+  checksum: ee1d37dd2a4eb26a8a92cd6b64dfc29caec72bff5e1ed9aba80c294f57a31ba4895a60fd48347cf17dd6e766da0ae87d75657dfd1f384ebfa60462c2283f5c7f
+  languageName: node
+  linkType: hard
+
 "node-dtls-client@npm:^1.0.1":
   version: 1.0.1
   resolution: "node-dtls-client@npm:1.0.1"
@@ -7350,6 +7414,17 @@ __metadata:
     encoding:
       optional: true
   checksum: 8d816ffd1ee22cab8301c7756ef04f3437f18dace86a1dae22cf81db8ef29c0bf6655f3215cb0cdb22b420b6fe141e64b26905e7f33f9377a7fa59135ea3e10b
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^3.2.4":
+  version: 3.2.10
+  resolution: "node-fetch@npm:3.2.10"
+  dependencies:
+    data-uri-to-buffer: ^4.0.0
+    fetch-blob: ^3.1.4
+    formdata-polyfill: ^4.0.10
+  checksum: e65322431f4897ded04197aa5923eaec63a8d53e00432de4e70a4f7006625c8dc32629c5c35f4fe8ee719a4825544d07bf53f6e146a7265914262f493e8deac1
   languageName: node
   linkType: hard
 
@@ -8776,6 +8851,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sirv@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "sirv@npm:2.0.2"
+  dependencies:
+    "@polka/url": ^1.0.0-next.20
+    mrmime: ^1.0.0
+    totalist: ^3.0.0
+  checksum: 6982f8ecee9392d246d7eeea8144e50334fe1b46a4fa942995a844ea88c2d518b17cce781bb09926c9a5692a7002a207d18dfd67af2aa538a15e733dc2042298
+  languageName: node
+  linkType: hard
+
 "sisteransi@npm:^1.0.5":
   version: 1.0.5
   resolution: "sisteransi@npm:1.0.5"
@@ -9606,6 +9692,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"totalist@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "totalist@npm:3.0.0"
+  checksum: ec499bddfc73d5b6c73f8ff68afd7bed286705797f928a11177fee5d1ee80e9052ffcb434638437702e16864bd5490f437a54f79bfea9564e875d34ed3254bca
+  languageName: node
+  linkType: hard
+
 "tr46@npm:~0.0.3":
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
@@ -9878,6 +9971,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici@npm:^5.8.1":
+  version: 5.10.0
+  resolution: "undici@npm:5.10.0"
+  checksum: 7ba2b71dccc74cd2bdf645b83e9aaef374ae04855943d0a2f42a3d0b9e5556f37cc9b5156fb5288277a2fa95fd46a56f3ae0d5cf73db3f008d75ec41104b136c
+  languageName: node
+  linkType: hard
+
 "unique-filename@npm:^1.1.1":
   version: 1.1.1
   resolution: "unique-filename@npm:1.1.1"
@@ -10065,6 +10165,13 @@ __metadata:
   dependencies:
     defaults: ^1.0.3
   checksum: 814e9d1ddcc9798f7377ffa448a5a3892232b9275ebb30a41b529607691c0491de47cba426e917a4d08ded3ee7e9ba2f3fe32e62ee3cd9c7d3bafb7754bd553c
+  languageName: node
+  linkType: hard
+
+"web-streams-polyfill@npm:^3.0.3":
+  version: 3.2.1
+  resolution: "web-streams-polyfill@npm:3.2.1"
+  checksum: b119c78574b6d65935e35098c2afdcd752b84268e18746606af149e3c424e15621b6f1ff0b42b2676dc012fc4f0d313f964b41a4b5031e525faa03997457da02
   languageName: node
   linkType: hard
 
