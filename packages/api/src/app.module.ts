@@ -12,6 +12,7 @@ import { PrismaModule } from './providers/prisma/prisma.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SmartHomeModule } from './modules/smart-home/smart-home.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { WeatherModule } from './modules/weather/weather.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     AuthenticationModule,
     RemindersModule,
     SmartHomeModule,
+    WeatherModule,
   ],
   controllers: [AppController],
   providers: [
