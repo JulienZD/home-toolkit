@@ -1,14 +1,5 @@
+import { ApiValidationError } from '$lib/api/http';
 import { HTTPError } from 'ky';
-
-interface IApiBadRequestError extends Omit<HTTPError, 'response'> {
-  response: {
-    status: 400 | 422;
-    data: {
-      fieldErrors: Record<string, string[]>;
-      [key: string]: unknown;
-    };
-  } & HTTPError['response'];
-}
 
 type IPossibleHTTPError =
   | {
@@ -17,7 +8,7 @@ type IPossibleHTTPError =
       type: 'http';
     }
   | {
-      error: IApiBadRequestError;
+      error: ApiValidationError;
       responseStatus: 400 | 422;
       type: 'validation-error';
     }
@@ -52,10 +43,10 @@ type IPossibleHTTPError =
 export const handleHTTPError =
   (callback: (err: IPossibleHTTPError) => void) => (error: unknown | Error | HTTPError) => {
     if (error instanceof HTTPError) {
-      if (error.response.status === 400 || error.response.status === 422) {
+      if (error instanceof ApiValidationError) {
         return void callback({
-          error: error as IApiBadRequestError,
-          responseStatus: error.response.status,
+          error,
+          responseStatus: error.response.status as 400 | 422,
           type: 'validation-error',
         });
       }

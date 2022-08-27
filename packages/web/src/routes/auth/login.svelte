@@ -25,7 +25,7 @@
     } catch (error) {
       const handleError = createHTTPErrorHandler(({ type, error, responseStatus }) => {
         if (type === 'validation-error') {
-          errors = error.response?.data?.fieldErrors ?? {};
+          errors = error.data.fieldErrors ?? {};
         } else if (type === 'http') {
           generalError = responseStatus === 401 ? 'Invalid credentials' : error.message;
         } else {

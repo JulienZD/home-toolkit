@@ -3,6 +3,7 @@ import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import { browser } from '$app/env';
 import jwtDecode from 'jwt-decode';
 import ky from 'ky';
+import { transformErrors } from '$lib/api/http/hooks';
 
 const LOCAL_STORAGE_ACCESS_TOKEN_KEY = 'accessToken';
 
@@ -24,6 +25,9 @@ const createAuth = () => {
           json: {
             email,
             password,
+          },
+          hooks: {
+            beforeError: [transformErrors],
           },
         })
         .json<{ accessToken: string; user: Record<string, string> }>();

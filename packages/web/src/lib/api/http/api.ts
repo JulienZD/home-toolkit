@@ -1,6 +1,7 @@
 import ky, { type Options } from 'ky';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import { auth } from '$lib/stores/auth';
+import { transformErrors } from './hooks';
 
 type WriteOperationOptions<T> = Omit<Options, 'json'> & {
   json: T;
@@ -31,6 +32,7 @@ class Api implements API {
             req.headers.set('Authorization', `Bearer ${this.authToken}`);
           },
         ],
+        beforeError: [transformErrors],
       },
     });
 
