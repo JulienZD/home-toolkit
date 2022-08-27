@@ -50,25 +50,16 @@ const createSmartHome = () => {
     };
   });
 
-  const operateLight = (lightId: string, operation: ISmartLightOperation) => {
+  const operateLight = async (lightId: string, operation: ISmartLightOperation) => {
     const state = get(smartHomeStore);
     const lightState = state.lights[lightId];
     if (!lightState) {
       throw new Error('Light not found');
     }
 
-    api
-      .patch<ISmartLightOperation>(`${SMART_LIGHT_PATH}/${lightId}`, {
-        json: operation,
-      })
-      .catch((error) => {
-        // FIXME: Don't depend on UI stuff here
-        showNotification({
-          title: 'An error occurred',
-          body: error instanceof Error ? error.message : String(error),
-          type: 'danger',
-        });
-      });
+    await api.patch<ISmartLightOperation>(`${SMART_LIGHT_PATH}/${lightId}`, {
+      json: operation,
+    });
   };
 
   return {
