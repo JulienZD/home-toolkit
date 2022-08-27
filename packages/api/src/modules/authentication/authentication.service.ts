@@ -53,8 +53,8 @@ export class AuthenticationService {
     const payload = {
       username: user.username,
       sub: user.id,
-      audience: this.configService.get<string>('JWT_AUDIENCE'),
-      issuer: this.configService.get<string>('JWT_ISSUER'),
+      audience: this.configService.get<string>('authentication.jwt.audience'),
+      issuer: this.configService.get<string>('authentication.jwt.issuer'),
     };
 
     return {

@@ -1,0 +1,31 @@
+{
+  database: {
+    user: 'user',
+    password: 'password',
+    database: 'toolkit',
+    host: 'localhost:5432',
+  },
+
+  authentication: {
+    jwt: {
+      secret: 'abcdef',
+      audience: 'toolkit.localhost',
+      issuer: 'toolkit.localhost',
+      expiresIn: '24h',
+    },
+  },
+
+  smartHome: {
+    tradfri: {
+      securityCode: 'The Security code found on the back of the Tradfri gateway',
+      identity: 'Generated on first startup when securityCode is set',
+      psk: 'Generated on first startup when securityCode is set',
+    },
+  },
+
+  weather: {
+    openweather: {
+      apiKey: 'key',
+    },
+  },
+}

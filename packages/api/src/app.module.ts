@@ -16,6 +16,13 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      load: [
+        async () => {
+          const config = await import('config');
+          return config.default;
+        },
+      ],
+      ignoreEnvFile: true,
       cache: true,
     }),
     EventEmitterModule.forRoot(),
