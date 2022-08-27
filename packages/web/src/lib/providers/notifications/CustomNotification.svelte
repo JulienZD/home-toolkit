@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Notification } from '@svelteuidev/core';
   import { fly } from 'svelte/transition';
 
   // TODO: Improve prop typing
@@ -13,22 +12,26 @@
   };
 
   const colorMap = {
-    success: 'green',
-    danger: 'red',
-    warning: 'orange',
+    success: 'success',
+    danger: 'error',
+    warning: 'warning',
+    info: 'info',
   };
 </script>
 
-<div transition:fly={{ x: 100, duration: 150 }}>
-  <Notification
-    override={{ right: '$4 !important', bottom: '$4 !important' }}
-    radius="md"
-    title={notification.title}
-    color={colorMap[notification.type]}
-    on:close={handleButtonClick}
-  >
-    {#if notification.body}
-      {notification.body}
+<div
+  transition:fly={{ x: 100, duration: 150 }}
+  class={`flex flex-col items-start min-w-[6rem] justify-start gap-0.5 alert relative mt-1 !right-1 !bottom-1 alert-${
+    colorMap[notification.type] ? colorMap[notification.type] : 'info'
+  }`}
+>
+  <div class="flex justify-between">
+    <p class:font-bold={!!notification.body}>{notification.title}</p>
+    {#if onRemove}
+      <button on:click={handleButtonClick} class="inline-block btn btn-circle btn-ghost btn-sm">X</button>
     {/if}
-  </Notification>
+  </div>
+  {#if notification.body}
+    <p>{notification.body}</p>
+  {/if}
 </div>
