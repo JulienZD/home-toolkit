@@ -1,7 +1,11 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+
   import { auth } from '$lib/stores/auth';
 
-  const logout = () => auth.logout();
+  const logout = () => {
+    goto('/').then(() => auth.logout());
+  };
 </script>
 
 {#if !$auth}

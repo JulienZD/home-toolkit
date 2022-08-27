@@ -1,11 +1,22 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { pages } from '$lib/data/pages';
+  import { user } from '$lib/stores/auth';
 
   export let closeDrawer: () => void;
 
   export let drawerSidebarScrollY: number;
   $: switchNavbarStyle = drawerSidebarScrollY > 40 ? true : false;
+
+  let visiblePages = pages;
+  $: {
+    const authFilter = ({ auth }: { auth?: boolean }) => (!!auth ? !!$user : true);
+    // Filter out protected pages if the user isn't authenticated
+    visiblePages = pages.filter(authFilter).map((page) => ({
+      ...page,
+      items: page.items.filter(authFilter),
+    }));
+  }
 </script>
 
 <div
@@ -23,7 +34,7 @@
 
 <div class="h-4" />
 
-{#each pages as { name, items }}
+{#each visiblePages as { name, items }}
   <ul class="menu menu-compact flex flex-col p-0 px-4">
     {#if name && name !== 'excluded'}
       <li />

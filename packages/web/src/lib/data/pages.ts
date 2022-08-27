@@ -1,11 +1,13 @@
 interface Page {
   name: string;
   items: PageItem[];
+  auth?: boolean;
 }
 
 interface PageItem {
   name: string | 'excluded';
   href: string;
+  auth?: boolean;
   hidden?: true;
   highlightAnotherItem?: string;
   icon?: string;
@@ -26,6 +28,7 @@ export const pages: Page[] = [
   },
   {
     name: 'Smart Home',
+    auth: true,
     items: [
       {
         name: 'Lights',
@@ -33,4 +36,14 @@ export const pages: Page[] = [
       },
     ],
   },
+];
+
+export const protectedPages = [
+  ...new Set(
+    pages.flatMap(({ auth, items }) => {
+      if (auth) return items.map(({ href }) => href);
+
+      return items.filter(({ auth }) => !!auth).map(({ href }) => href);
+    })
+  ),
 ];
