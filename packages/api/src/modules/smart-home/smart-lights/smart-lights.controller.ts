@@ -1,5 +1,5 @@
-import type { ISmartLightOperation } from '@home-toolkit/types/smart-home';
 import { Controller, Get, Patch, Param, Body, UseFilters } from '@nestjs/common';
+import { UpdateLightDto } from './dto/light.dto';
 import { SmartLightExceptionFilter } from './filters/smart-light-exception.filter';
 import { ISmartLightsService } from './smart-lights.service';
 
@@ -14,7 +14,7 @@ export class SmartLightsController {
   }
 
   @Patch(':id')
-  public async updateLight(@Param('id') id: string, @Body() data: ISmartLightOperation) {
+  public async updateLight(@Param('id') id: string, @Body() data: UpdateLightDto) {
     return this.smartLightsService.updateLight(id, data);
   }
 }
