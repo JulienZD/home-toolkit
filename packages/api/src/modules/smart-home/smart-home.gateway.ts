@@ -1,5 +1,5 @@
 import type { ISmartLightOperation } from '@home-toolkit/types/smart-home';
-import { Logger } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
   ConnectedSocket,
@@ -9,27 +9,21 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Server as SocketIoServer, Socket } from 'socket.io';
+import { WSAuthGuard } from '../authentication/guards/ws-auth.guard';
 
 @WebSocketGateway({
   cors: true,
   path: '/smart-home/ws',
 })
+@UseGuards(WSAuthGuard)
 export class SmartHomeGateway implements OnGatewayConnection<Socket> {
   @WebSocketServer()
-  public server!: Server;
+  public server!: SocketIoServer;
 
   private logger = new Logger('WebSocket');
 
-  // TODO: Use middleware to constantly verify auth
   handleConnection(@ConnectedSocket() client: Socket) {
-    // TODO: Auth
-    // if (client.handshake.auth.token !== 'secret') {
-    //   this.logger.debug(`Disallow connection from ${client.id}, token: ${client.handshake.auth.token}`);
-    //   client.disconnect();
-    //   return;
-    // }
-
     this.logger.debug(`New connection: ${client.id}`);
   }
 

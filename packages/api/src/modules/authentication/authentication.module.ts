@@ -7,6 +7,7 @@ import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { WSJwtStrategy } from './strategies/ws-jwt.strategy';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule,
   ],
   controllers: [AuthenticationController],
-  providers: [AuthenticationService, LocalStrategy, JwtStrategy],
+  providers: [AuthenticationService, LocalStrategy, JwtStrategy, WSJwtStrategy],
 })
 export class AuthenticationModule {}
