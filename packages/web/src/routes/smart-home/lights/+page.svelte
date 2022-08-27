@@ -8,7 +8,9 @@
 {#if !lightsLoaded}
   <p>Loading light data...</p>
 {:else}
-  {#each Object.values($smartHome?.lights) as light (light.id)}
-    <SmartLight {light} />
-  {/each}
+  <div class="grid gap-y-2">
+    {#each Object.values($smartHome?.lights) as light (light.id)}
+      <SmartLight {light} />
+    {/each}
+  </div>
 {/if}
