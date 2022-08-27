@@ -2,7 +2,7 @@
   export let title = '';
 </script>
 
-<div class="rounded bg-base-200 p-2">
+<div class="rounded bg-base-200 p-2 flex flex-col">
   {#if title}
     <h2 class="mb-2">{title}</h2>
   {/if}

@@ -1,48 +1,60 @@
 <script lang="ts">
-  import { api } from '$lib/api/http';
-  import { getGeolocation } from '$lib/util/helpers/geolocation';
-  import type { IWeatherForecast } from '@home-toolkit/types/weather';
-  import { onMount } from 'svelte';
+  import { weather } from '$lib/stores/weather';
+  import humanizeDuration from 'humanize-duration';
+  import { onDestroy, onMount } from 'svelte';
   import DashboardWidget from './DashboardWidget.svelte';
 
-  let weatherData: IWeatherForecast;
-  let error = '';
+  let accurateAsOf = '';
 
-  onMount(async () => {
-    try {
-      const position = await getGeolocation();
+  const updateTimeInterval = setInterval(() => {
+    if (!$weather || 'error' in $weather) return;
 
-      const { latitude, longitude } = position.coords;
+    accurateAsOf = humanizeDuration(Date.now() - $weather.retrievalTime * 1000, { round: true, units: ['h', 'm'] });
+  }, 1000);
 
-      weatherData = await api.get<IWeatherForecast>(`weather?lat=${latitude}&lon=${longitude}`);
-    } catch (err) {
-      error = err instanceof Error ? err.message : 'Something went wrong.';
-    }
+  onMount(() => {
+    weather.start();
+  });
+
+  onDestroy(() => {
+    weather.stop();
+    clearInterval(updateTimeInterval);
   });
 
   const METERS_PER_SEC_TO_KM_PER_HOUR_CONVERSION_UNIT = 3.6;
+  const mpsToKmH = (speedInMeters: number) => Math.floor(speedInMeters * METERS_PER_SEC_TO_KM_PER_HOUR_CONVERSION_UNIT);
 </script>
 
 <DashboardWidget title="Weather">
-  {#if !error && !weatherData}
+  {#await weather.init()}
     <p>Loading...</p>
-  {:else if error}
-    <p class="text-error">Error: {error}</p>
-  {:else}
-    <div class="flex gap-x-2 justify-between">
-      <div class="flex flex-col">
-        <div class="flex gap-x-1">
-          <p class="text-3xl font-semibold">{weatherData.temperature.feelsLike.toFixed()}</p>
-          <span>°C</span>
+  {:then}
+    {#if $weather && 'error' in $weather}
+      <p class="text-error">Error: {$weather.error}</p>
+    {:else if $weather}
+      <div class="h-full flex flex-col">
+        <div class="flex gap-x-2 justify-between grow">
+          <div class="flex flex-col">
+            <div class="flex gap-x-1">
+              <p class="text-3xl font-semibold">{Math.floor($weather.temperature.feelsLike)}</p>
+              <span>°C</span>
+            </div>
+            <p>{$weather.main}</p>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-sm">Humidity: {$weather.humidity}%</p>
+            <p class="text-sm">
+              Wind: {mpsToKmH($weather.wind.speed)} km/h
+            </p>
+          </div>
         </div>
-        <p>{weatherData.main}</p>
+
+        <div class="min-w-[16rem]">
+          <span class="text-xs">Data is accurate as of {accurateAsOf} ago</span>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <p class="text-sm">Humidity: {weatherData.humidity}%</p>
-        <p class="text-sm">
-          Wind: {(weatherData.wind.speed * METERS_PER_SEC_TO_KM_PER_HOUR_CONVERSION_UNIT).toFixed()} km/h
-        </p>
-      </div>
-    </div>
-  {/if}
+    {/if}
+  {:catch err}
+    <p class="text-error">Error: {err}</p>
+  {/await}
 </DashboardWidget>

@@ -801,6 +801,7 @@ __metadata:
     "@sveltejs/adapter-auto": 1.0.0-next.66
     "@sveltejs/kit": 1.0.0-next.444
     "@sveltestack/svelte-query": ^1.6.0
+    "@types/humanize-duration": ^3.27.1
     "@typescript-eslint/eslint-plugin": ^5.27.0
     "@typescript-eslint/parser": ^5.27.0
     autoprefixer: ^10.4.7
@@ -809,6 +810,7 @@ __metadata:
     eslint: ^8.16.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-svelte3: ^4.0.0
+    humanize-duration: ^3.27.3
     jwt-decode: ^3.1.2
     ky: ^0.31.1
     postcss: ^8.4.14
@@ -1922,6 +1924,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: d076bb61f45d0fc42dee496ef8b1c2f8742e15d5e47e90e20d0243386e426c04d4efd408a48875ab432f7960b4ce3414db20ed0fbbfc7bcc89d84e574f6e045a
+  languageName: node
+  linkType: hard
+
+"@types/humanize-duration@npm:^3.27.1":
+  version: 3.27.1
+  resolution: "@types/humanize-duration@npm:3.27.1"
+  checksum: d3d69b64918d0cee4aa69580dd04d1b96e3385645d398e27b1535f8c6d0252b0235defb16619379a6196c6bbdfc7b6032f010b25cac44903a32b09db8aa06f30
   languageName: node
   linkType: hard
 
@@ -5616,6 +5625,13 @@ __metadata:
   version: 3.0.1
   resolution: "human-signals@npm:3.0.1"
   checksum: f252a7769c8094a5c9dc6772816bdb417b188820b04c8b42d0fc468e03a0ba905b1dd07afabe9385cc83504af1ccc2b985cd1e4aeeeb8e0029896c5af2e6f354
+  languageName: node
+  linkType: hard
+
+"humanize-duration@npm:^3.27.3":
+  version: 3.27.3
+  resolution: "humanize-duration@npm:3.27.3"
+  checksum: 17193537334676cbff156a5f60ea6349e4e981f33062fdae901ac10ed096d4f05e7b8839d362cbda7a06ade2a499f0a655e3c1bf9da6d4a234d99ed0498ba516
   languageName: node
   linkType: hard
 
