@@ -2,6 +2,7 @@ import type { ISmartLight, ISmartLightOperation } from '@home-toolkit/types/smar
 import { get, writable } from 'svelte/store';
 import { api } from '$lib/api/http';
 import { createAuthenticatedSocket } from '../authSocket';
+import { showNotification } from '$lib/util/notifications';
 
 interface SmartHomeStore {
   lights: Record<string, ISmartLight>;
@@ -10,12 +11,10 @@ interface SmartHomeStore {
 const SMART_HOME_PATH = 'smart-home';
 const SMART_LIGHT_PATH = `${SMART_HOME_PATH}/lights`;
 
-const smartHomeStore = writable<SmartHomeStore>({ lights: {} });
-
 const socket = createAuthenticatedSocket(`/${SMART_HOME_PATH}/ws`);
 
 const createSmartHome = () => {
-  const $socket = get(socket);
+  const smartHomeStore = writable<SmartHomeStore>({ lights: {} });
 
   const updateLight = (light: ISmartLight) => {
     smartHomeStore.update((curr) => {
@@ -29,14 +28,26 @@ const createSmartHome = () => {
     });
   };
 
-  $socket?.on('connect', async () => {
-    const data = await api.get<ISmartLight[]>(SMART_LIGHT_PATH);
+  const socketUnsubscriber = socket.subscribe((io) => {
+    if (!io) {
+      // Reset the store when the socket closes (unauthenticated)
+      smartHomeStore.set({ lights: {} });
+      return;
+    }
 
-    data.forEach(updateLight);
-  });
+    io.on('connect', async () => {
+      const data = await api.get<ISmartLight[]>(SMART_LIGHT_PATH);
 
-  $socket?.on('lightUpdate', (lightUpdate: ISmartLight) => {
-    updateLight(lightUpdate);
+      if (data && Array.isArray(data)) {
+        data.forEach(updateLight);
+      }
+    });
+
+    io.on('lightUpdate', updateLight);
+
+    return () => {
+      io.off('lightUpdate', updateLight);
+    };
   });
 
   const operateLight = (lightId: string, operation: ISmartLightOperation) => {
@@ -50,12 +61,20 @@ const createSmartHome = () => {
       .patch<ISmartLightOperation>(`${SMART_LIGHT_PATH}/${lightId}`, {
         json: operation,
       })
-      .catch(console.error);
+      .catch((error) => {
+        // FIXME: Don't depend on UI stuff here
+        showNotification({
+          title: 'An error occurred',
+          body: error instanceof Error ? error.message : String(error),
+          type: 'danger',
+        });
+      });
   };
 
   return {
     subscribe: smartHomeStore.subscribe,
     operateLight,
+    unsubscribe: socketUnsubscriber,
   };
 };
 
