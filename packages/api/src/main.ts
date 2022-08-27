@@ -1,8 +1,8 @@
-import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { SensitiveDataFilterInterceptor } from '~/modules/shared/interceptors/sensitive-data-filter.interceptor';
+import { AppModule } from './app.module';
+import { AppZodValidationPipe } from './filters/zod-validation-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,7 +11,7 @@ async function bootstrap() {
     defaultVersion: '1',
   });
 
-  app.useGlobalPipes(new ZodValidationPipe());
+  app.useGlobalPipes(new AppZodValidationPipe());
 
   app.useGlobalInterceptors(new SensitiveDataFilterInterceptor(['password']));
 
