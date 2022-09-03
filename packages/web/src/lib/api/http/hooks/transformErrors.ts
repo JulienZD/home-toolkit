@@ -1,4 +1,4 @@
-import { ApiValidationError } from './errors';
+import { ApiValidationError } from '../errors';
 import type { HTTPError } from 'ky';
 
 export const transformErrors = async (httpError: HTTPError): Promise<HTTPError> => {
