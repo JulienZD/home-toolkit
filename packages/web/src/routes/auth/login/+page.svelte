@@ -2,6 +2,7 @@
   import { auth } from '$lib/stores/auth';
   import { createHTTPErrorHandler } from '$lib/util/handleHTTPError';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import TextInput from '$lib/components/ui/form/TextInput.svelte';
 
   let email: string;
@@ -12,7 +13,10 @@
 
   auth.subscribe((authenticated) => {
     if (authenticated) {
-      void goto('/');
+      const returnUrl = $page.url.searchParams.get('return_url');
+
+      // Redirect to specified URL if it's on this site, otherwise go to home
+      goto(returnUrl?.startsWith('/') ? returnUrl : '/');
     }
   });
 

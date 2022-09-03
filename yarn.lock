@@ -728,6 +728,7 @@ __metadata:
   dependencies:
     "@anatine/zod-nestjs": ^1.7.3
     "@home-toolkit/types": "workspace:^"
+    "@nestjs/axios": ^0.1.0
     "@nestjs/cli": ^9.0.0
     "@nestjs/common": ^9.0.9
     "@nestjs/config": ^2.2.0
@@ -743,6 +744,7 @@ __metadata:
     "@nestjs/websockets": ^9.0.9
     "@prisma/client": ^4.2.1
     "@types/bcrypt": ^5.0.0
+    "@types/config": ^3.3.0
     "@types/express": ^4.17.13
     "@types/jest": 28.1.6
     "@types/lodash": ^4.14.182
@@ -756,6 +758,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
     bcrypt: ^5.0.1
+    config: ^3.3.7
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
@@ -798,6 +801,7 @@ __metadata:
     "@sveltejs/adapter-auto": 1.0.0-next.66
     "@sveltejs/kit": 1.0.0-next.444
     "@sveltestack/svelte-query": ^1.6.0
+    "@types/humanize-duration": ^3.27.1
     "@typescript-eslint/eslint-plugin": ^5.27.0
     "@typescript-eslint/parser": ^5.27.0
     autoprefixer: ^10.4.7
@@ -806,6 +810,7 @@ __metadata:
     eslint: ^8.16.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-svelte3: ^4.0.0
+    humanize-duration: ^3.27.3
     jwt-decode: ^3.1.2
     ky: ^0.31.1
     postcss: ^8.4.14
@@ -1204,6 +1209,19 @@ __metadata:
   bin:
     node-pre-gyp: bin/node-pre-gyp
   checksum: 1b9c4c87a68d200daa13151d0fe033aa7aa8f7b26f3585255424dd8dfee2ec672c3e9bea4071c624469bc0aebbbcde08f8a300c8a958db52c50abadd5fb56920
+  languageName: node
+  linkType: hard
+
+"@nestjs/axios@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@nestjs/axios@npm:0.1.0"
+  dependencies:
+    axios: 0.27.2
+  peerDependencies:
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0
+    reflect-metadata: ^0.1.12
+    rxjs: ^6.0.0 || ^7.0.0
+  checksum: 72929b25caacb85517bae962b13d865a31aa3984aa9e55305e0a2306e54338fe51a7eb38ca38cab0fe8b4116fb35219bd02c8b0c4cac70e7b5aeb84d03a1db3f
   languageName: node
   linkType: hard
 
@@ -1806,6 +1824,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/config@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@types/config@npm:3.3.0"
+  checksum: d9485041cfa05864d3b8095cf7b44fae910887f6782dc43ab1ba4ea78d9cdf4a8c9d697557318ede2b4b63a05b7f91e8571b8dbe048ad024e709d9e51e0487d8
+  languageName: node
+  linkType: hard
+
 "@types/connect@npm:*":
   version: 3.4.35
   resolution: "@types/connect@npm:3.4.35"
@@ -1899,6 +1924,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: d076bb61f45d0fc42dee496ef8b1c2f8742e15d5e47e90e20d0243386e426c04d4efd408a48875ab432f7960b4ce3414db20ed0fbbfc7bcc89d84e574f6e045a
+  languageName: node
+  linkType: hard
+
+"@types/humanize-duration@npm:^3.27.1":
+  version: 3.27.1
+  resolution: "@types/humanize-duration@npm:3.27.1"
+  checksum: d3d69b64918d0cee4aa69580dd04d1b96e3385645d398e27b1535f8c6d0252b0235defb16619379a6196c6bbdfc7b6032f010b25cac44903a32b09db8aa06f30
   languageName: node
   linkType: hard
 
@@ -2882,6 +2914,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:0.27.2":
+  version: 0.27.2
+  resolution: "axios@npm:0.27.2"
+  dependencies:
+    follow-redirects: ^1.14.9
+    form-data: ^4.0.0
+  checksum: 38cb7540465fe8c4102850c4368053c21683af85c5fdf0ea619f9628abbcb59415d1e22ebc8a6390d2bbc9b58a9806c874f139767389c862ec9b772235f06854
+  languageName: node
+  linkType: hard
+
 "babel-jest@npm:^28.1.3":
   version: 28.1.3
   resolution: "babel-jest@npm:28.1.3"
@@ -3591,6 +3633,15 @@ __metadata:
     readable-stream: ^2.2.2
     typedarray: ^0.0.6
   checksum: 1ef77032cb4459dcd5187bd710d6fc962b067b64ec6a505810de3d2b8cc0605638551b42f8ec91edf6fcd26141b32ef19ad749239b58fae3aba99187adc32285
+  languageName: node
+  linkType: hard
+
+"config@npm:^3.3.7":
+  version: 3.3.7
+  resolution: "config@npm:3.3.7"
+  dependencies:
+    json5: ^2.1.1
+  checksum: 53b68dbf303a262b16ee376bb8ee08a9f1f4d09ea5d35a45cd9a47a47591a0817c00d5d10f0d53328221f2a927c98ef8eb921679ad9722c80400df6839c40861
   languageName: node
   linkType: hard
 
@@ -5018,6 +5069,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.9":
+  version: 1.15.1
+  resolution: "follow-redirects@npm:1.15.1"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 6aa4e3e3cdfa3b9314801a1cd192ba756a53479d9d8cca65bf4db3a3e8834e62139245cd2f9566147c8dfe2efff1700d3e6aefd103de4004a7b99985e71dd533
+  languageName: node
+  linkType: hard
+
 "fork-ts-checker-webpack-plugin@npm:7.2.11":
   version: 7.2.11
   resolution: "fork-ts-checker-webpack-plugin@npm:7.2.11"
@@ -5564,6 +5625,13 @@ __metadata:
   version: 3.0.1
   resolution: "human-signals@npm:3.0.1"
   checksum: f252a7769c8094a5c9dc6772816bdb417b188820b04c8b42d0fc468e03a0ba905b1dd07afabe9385cc83504af1ccc2b985cd1e4aeeeb8e0029896c5af2e6f354
+  languageName: node
+  linkType: hard
+
+"humanize-duration@npm:^3.27.3":
+  version: 3.27.3
+  resolution: "humanize-duration@npm:3.27.3"
+  checksum: 17193537334676cbff156a5f60ea6349e4e981f33062fdae901ac10ed096d4f05e7b8839d362cbda7a06ade2a499f0a655e3c1bf9da6d4a234d99ed0498ba516
   languageName: node
   linkType: hard
 
@@ -6493,7 +6561,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.2.1":
+"json5@npm:^2.1.1, json5@npm:^2.2.1":
   version: 2.2.1
   resolution: "json5@npm:2.2.1"
   bin:

@@ -7,9 +7,10 @@ A [NestJS](https://nestjs.com/) backend which uses [Prisma](https://prisma.io) t
 $ yarn install
 ```
 
-Setup your environment values
+Setup your environment variables
 ```bash
-$ cp .env.example .env
+$ cp .env.example .env # Used for Prisma
+$ cp /config/default.example.json5 /config/default.json5 # Used for all other values
 ```
 
 Setup the database

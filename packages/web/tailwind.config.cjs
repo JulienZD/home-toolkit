@@ -5,7 +5,7 @@ const config = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   safelist: [
     {
-      pattern: /alert-(error|success|info|warning)/
+      pattern: /alert-(error|success|info|warning)/,
     },
   ],
   theme: {

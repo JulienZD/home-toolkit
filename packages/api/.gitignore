@@ -34,9 +34,12 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Environment files
 .env
 .env.*
 !.env.example
+config/*.json5
+!config/*.example.json5
 
 # Generated Zod Prisma schemas
 /prisma/generated/zod

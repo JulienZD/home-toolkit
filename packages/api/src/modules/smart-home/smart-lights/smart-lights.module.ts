@@ -9,9 +9,9 @@ import { ISmartLightsService } from './smart-lights.service';
 const tempTradfriServiceProvider: Provider<ISmartLightsService> = {
   provide: ISmartLightsService,
   useFactory: (configService: ConfigService, eventEmitter: EventEmitter2) => {
-    const securityCode = configService.get('TRADFRI_SECURITY_CODE');
-    const psk = configService.get('TRADFRI_PSK');
-    const identity = configService.get('TRADFRI_IDENTITY');
+    const securityCode = configService.get('smartHome.tradfri.securityCode');
+    const psk = configService.get<string>('smartHome.tradfri.psk');
+    const identity = configService.get<string>('smartHome.tradfri.identity');
 
     return new TradfriService(
       {

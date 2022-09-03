@@ -1,7 +1,8 @@
 import ky, { type Options } from 'ky';
 import { PUBLIC_BASE_API_URL } from '$env/static/public';
 import { auth } from '$lib/stores/auth';
-import { transformErrors } from './hooks';
+import { onUnauthorized } from './hooks/onUnauthorized';
+import { transformErrors } from './hooks/transformErrors';
 
 type WriteOperationOptions<T> = Omit<Options, 'json'> & {
   json: T;
@@ -33,6 +34,7 @@ class Api implements API {
           },
         ],
         beforeError: [transformErrors],
+        afterResponse: [onUnauthorized],
       },
     });
 

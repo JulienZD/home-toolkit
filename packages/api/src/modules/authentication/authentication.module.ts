@@ -15,11 +15,11 @@ import { WSJwtStrategy } from './strategies/ws-jwt.strategy';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
+        secret: configService.get<string>('authentication.jwt.secret'),
+        signOptions: { expiresIn: configService.get<string>('authentication.jwt.expiresIn') },
         verifyOptions: {
-          audience: configService.get<string>('JWT_AUDIENCE'),
-          issuer: configService.get<string>('JWT_ISSUER'),
+          audience: configService.get<string>('authentication.jwt.audience'),
+          issuer: configService.get<string>('authentication.jwt.issuer'),
         },
       }),
       inject: [ConfigService],

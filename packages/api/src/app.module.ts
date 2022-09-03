@@ -12,10 +12,18 @@ import { PrismaModule } from './providers/prisma/prisma.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SmartHomeModule } from './modules/smart-home/smart-home.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { WeatherModule } from './modules/weather/weather.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      load: [
+        async () => {
+          const config = await import('config');
+          return config.default;
+        },
+      ],
+      ignoreEnvFile: true,
       cache: true,
     }),
     EventEmitterModule.forRoot(),
@@ -25,6 +33,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     AuthenticationModule,
     RemindersModule,
     SmartHomeModule,
+    WeatherModule,
   ],
   controllers: [AppController],
   providers: [

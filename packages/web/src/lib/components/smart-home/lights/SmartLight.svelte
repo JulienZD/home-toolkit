@@ -23,7 +23,7 @@
   const setBrightness = (brightness: number) => _operateLight({ brightness });
 </script>
 
-<div class="my-6 bg-base-300 rounded p-4">
+<div class="bg-base-300 rounded p-4">
   <p class="font-bold text-lg mb-2">{light.name}</p>
   <Toggle on:click={toggleLight} bind:checked={light.isOn} label="Enabled" />
 
