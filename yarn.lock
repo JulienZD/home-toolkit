@@ -799,6 +799,7 @@ __metadata:
   dependencies:
     "@home-toolkit/types": "workspace:^"
     "@sveltejs/adapter-auto": 1.0.0-next.66
+    "@sveltejs/adapter-node": ^1.0.0-next.88
     "@sveltejs/kit": 1.0.0-next.444
     "@sveltestack/svelte-query": ^1.6.0
     "@types/humanize-duration": ^3.27.1
@@ -1651,6 +1652,15 @@ __metadata:
     set-cookie-parser: ^2.4.8
     tiny-glob: ^0.2.9
   checksum: e48407eff07e3e1182ed4c43e455b98e69fb943417afcbfb4b6331da662b436799cf4bcd1ab901f3f8c62b71802f6ef3f87e7215ef1594ce7dd8aed52b0d3515
+  languageName: node
+  linkType: hard
+
+"@sveltejs/adapter-node@npm:^1.0.0-next.88":
+  version: 1.0.0-next.88
+  resolution: "@sveltejs/adapter-node@npm:1.0.0-next.88"
+  dependencies:
+    esbuild: ^0.14.48
+  checksum: 07c6194c7d41ebf941c1a755459bc96aa6b1a00a069195fa84e2f89930badf87cafcea9aea63551fe852c0f8c479940a43eddbb8c654cad867890eb66be7d379
   languageName: node
   linkType: hard
 

@@ -5,7 +5,15 @@ tsconfig.build.tsbuildinfo
 .env.*
 !.env.example
 
-/.yarn
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # OS
 .DS_Store
 
