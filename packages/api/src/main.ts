@@ -1,4 +1,5 @@
 import { VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SensitiveDataFilterInterceptor } from '~/modules/shared/interceptors/sensitive-data-filter.interceptor';
 import { AppModule } from './app.module';
@@ -19,6 +20,9 @@ async function bootstrap() {
 
   app.enableShutdownHooks();
 
-  await app.listen(3000);
+  const config = app.get(ConfigService);
+  const port = config.get('port', 3000);
+
+  await app.listen(port, () => console.log('Nest app listening on port', port));
 }
 bootstrap();
